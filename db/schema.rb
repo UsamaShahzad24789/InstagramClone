@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_04_074628) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_04_130047) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_04_074628) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role"
+    t.integer "role", default: 0
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   end
@@ -33,6 +33,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_04_074628) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer "followed_id"
+    t.integer "follower_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "likes", force: :cascade do |t|
@@ -48,13 +55,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_04_074628) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "profile_id"
   end
 
   create_table "profiles", force: :cascade do |t|
     t.string "user_name"
     t.string "email"
     t.bigint "account_id"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_profiles_on_account_id"
@@ -62,5 +70,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_04_074628) do
 
   add_foreign_key "comments", "posts"
   add_foreign_key "likes", "posts"
+  add_foreign_key "posts", "profiles"
   add_foreign_key "profiles", "accounts"
 end
