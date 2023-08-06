@@ -8,4 +8,6 @@ class Account < ApplicationRecord
   has_one :profile, dependent: :destroy
   #each account has two roles and default role is user
   enum role: {users: 0, admin: 1}
+
+ 
 end
