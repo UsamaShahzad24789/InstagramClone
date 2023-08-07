@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get 'accounts/confirmation_pending',to: 'profiles#after_registration_path'
   get 'accounts/after_confirmation',to: 'profiles#after_confirmation_path'
-  root to: 'profiles#index'
+  root to: 'home#index'
   resources :profiles ,only: [:new,:create,:index]
   resources :posts ,only: [:new,:create]
   get 'posts/options' ,to: 'posts#post_options'
