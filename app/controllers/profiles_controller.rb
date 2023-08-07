@@ -7,7 +7,8 @@ class ProfilesController < ApplicationController
             redirect_to new_profile_path
         else
             @profile=Profile.find_by(account_id:current_account.id)
-            @posts=Post.where(profile_id:current_profile)
+            @posts=Post.where(profile_id:current_profile).order(created_at: :desc)
+
         end
     end
 
