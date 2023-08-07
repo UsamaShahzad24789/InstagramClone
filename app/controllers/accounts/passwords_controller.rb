@@ -18,13 +18,12 @@ class Accounts::PasswordsController < Devise::PasswordsController
 
   # PUT /resource/password
   def update
-    # debugger
+    #manually updating password that is being sent thorugh params when set password form is submitted
     format=params[:format]
     account=Account.find_by(id:params[:id])
     if account.update(password:format[:password])
       account.update(password:format[:password_confirmation])
       account.update(reset_password_token:params[:reset_password_token])
-      # debugger
       redirect_to new_account_session_path
     else
       render :new
