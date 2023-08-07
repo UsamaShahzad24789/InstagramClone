@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+    include CurrentProfile
     before_action :authenticate_account!
     skip_before_action :authenticate_account! ,only:[:after_registration_path,:after_confirmation_path]
     def index
@@ -6,6 +7,7 @@ class ProfilesController < ApplicationController
             redirect_to new_profile_path
         else
             @profile=Profile.find_by(account_id:current_account.id)
+            @posts=Post.where(profile_id:current_profile)
         end
     end
 

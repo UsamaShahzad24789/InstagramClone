@@ -18,6 +18,7 @@ class Accounts::PasswordsController < Devise::PasswordsController
 
   # PUT /resource/password
   def update
+    debugger
     #manually updating password that is being sent thorugh params when set password form is submitted
     format=params[:format]
     account=Account.find_by(id:params[:id])

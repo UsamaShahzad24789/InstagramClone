@@ -17,7 +17,4 @@ class Profile < ApplicationRecord
 
     #Using Active Storage to attach image and videos
     has_one_attached :profile_picture
-    has_one_attached :image
-    has_one_attached :video
-    has_many_attached :images
 end
