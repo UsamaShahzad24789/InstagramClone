@@ -17,9 +17,19 @@ class Accounts::PasswordsController < Devise::PasswordsController
   # end
 
   # PUT /resource/password
-  # def update
-  #   super
-  # end
+  def update
+    # debugger
+    format=params[:format]
+    account=Account.find_by(id:params[:id])
+    if account.update(password:format[:password])
+      account.update(password:format[:password_confirmation])
+      account.update(reset_password_token:params[:reset_password_token])
+      # debugger
+      redirect_to new_account_session_path
+    else
+      render :new
+    end
+  end
 
   # protected
 

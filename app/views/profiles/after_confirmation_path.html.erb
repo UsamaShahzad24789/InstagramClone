@@ -1,0 +1,23 @@
+<h2>Set your Password</h2>
+
+<%= form_for(:format, as: :account, url: account_password_path, html: { method: :PATCH }) do |f| %>
+  <%# <%= render "devise/shared/error_messages", resource: :format %>
+  <%= hidden_field_tag :reset_password_token,params[:reset_password_token] %>
+  <%= hidden_field_tag :id,params[:format] %>
+  <div class="field">
+    <%= f.label :password, "New password" %><br />
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+    <% end %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirm new password" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Set password" %>
+  </div>
+<% end %>
