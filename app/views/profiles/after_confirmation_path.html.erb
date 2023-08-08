@@ -1,6 +1,7 @@
 <h2>Set your Password</h2>
 
-<%= form_for(:format, as: :account, url: account_password_path, html: { method: :PATCH }) do |f| %>
+<div id="passwordSetup">
+  <%= form_for(:format, as: :account, url: account_password_path, html: { method: :PATCH }) do |f| %>
   <%# <%= render "devise/shared/error_messages", resource: :format %>
   <%= hidden_field_tag :reset_password_token,params[:reset_password_token] %>
   <%= hidden_field_tag :id,params[:format] %>
@@ -21,3 +22,5 @@
     <%= f.submit "Set password" %>
   </div>
 <% end %>
+
+</div>

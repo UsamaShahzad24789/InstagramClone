@@ -13,8 +13,12 @@ class Profile < ApplicationRecord
 
     #scopes
     scope :account_has_profile, ->(a){where(account_id:a)}
-    #scope :profile_exist,->(a){Profile.account_has_profile(current_account.id).exists?}
-
+    scope :following,->(a){Friendship.where(follower_id:a).pluck(:followed_id)}
+    scope :followers,->(a){Friendship.where(followed_id:a).pluck(:follower_id)}
+    scope :following_count,->(a){Friendship.where(follower_id:a).pluck(:followed_id).count}
+    scope :followers_count,->(a){Friendship.where(followed_id:a).pluck(:follower_id).count}
+    scope :max_followers,->{Friendship.select(:followed_id).group(:followed_id).count.max}
+    scope :post_count,->(a){Post.where(profile_id:a).count}
     #Using Active Storage to attach image and videos
     has_one_attached :profile_picture
 end

@@ -7,7 +7,10 @@ class ProfilesController < ApplicationController
             redirect_to new_profile_path
         else
             @profile=Profile.find_by(account_id:current_account.id)
-            @posts=Post.where(profile_id:current_profile)
+            @posts=Post.where(profile_id:current_profile).order(created_at: :desc)
+            @followers=Profile.followers_count(@profile.id)
+            @following=Profile.following_count(@profile.id)
+            @post_count=Profile.post_count(@profile.id)
         end
     end
 
@@ -19,7 +22,9 @@ class ProfilesController < ApplicationController
         @profile=Profile.new(profile_params)
         @profile.update(email:current_account.email,account_id:current_account.id)
         if @profile.save
-            redirect_to profiles_path
+            respond_to do |format|
+                format.html { redirect_to profiles_path, notice: 'Post was successfully Created.' }
+            end
         else
             render :new , status: :unprocessable_entity
         end

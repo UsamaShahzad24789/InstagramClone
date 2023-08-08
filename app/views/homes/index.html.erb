@@ -1,0 +1,42 @@
+<h1>INSTAGRAM</h1>
+<%=link_to "Your Profile",profiles_path,class: "btn btn-outline-primary"%>
+<%unless @following.empty?%>
+  <%if @post!=nil%>
+      <%@post.each do |x|%>
+      <div>
+        <%=@user_name%>
+        <%=x.caption%>
+        <%=x.location%>
+        <%if x.image.representable?%>
+          <%=image_tag x.image.representation(resize_to_limit: [100, 100])%>
+        <%end%>
+        <button id="likeBtn" class="btn btn-primary" id="like" data-x-id="<%=x.id%>">Like</button>
+        <%=link_to "Comment",new_comment_path(x),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
+      <%end%>
+    <%end%>
+<% else %>
+  <%=@message%>
+  <%if @post!=nil%>
+      <%@post.each do |x|%>
+      <div>
+        <%=@user_name%>
+        <%=x.caption%>
+        <%=x.location%>
+        <%if x.image.representable?%>
+          <%=image_tag x.image.representation(resize_to_limit: [100, 100])%>
+        <%end%>
+      <%end%>
+    <%end%>
+<% end %>
+<script>
+  $(document).ready(function(){
+    $('#like').on('click',function(){
+    console.log("hi")
+    $.ajax({
+            url: '/likes/add_likes',
+              type: 'POST',
+              data: {post_id: x-id},
+            })
+  });
+  })
+</script>
