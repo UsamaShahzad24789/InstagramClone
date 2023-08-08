@@ -1,33 +1,47 @@
-<h1>INSTAGRAM</h1>
-<%=link_to "Your Profile",profiles_path,class: "btn btn-outline-primary"%>
-<%unless @following.empty?%>
-  <%if @post!=nil%>
-      <%@post.each do |x|%>
-      <div>
-        <%=@user_name%>
-        <%=x.caption%>
-        <%=x.location%>
-        <%if x.image.representable?%>
-          <%=image_tag x.image.representation(resize_to_limit: [100, 100])%>
-        <%end%>
-        <button id="likeBtn" class="btn btn-primary" id="like" data-x-id="<%=x.id%>">Like</button>
-        <%=link_to "Comment",new_comment_path(x),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
-      <%end%>
-    <%end%>
-<% else %>
-  <%=@message%>
-  <%if @post!=nil%>
-      <%@post.each do |x|%>
-      <div>
-        <%=@user_name%>
-        <%=x.caption%>
-        <%=x.location%>
-        <%if x.image.representable?%>
-          <%=image_tag x.image.representation(resize_to_limit: [100, 100])%>
-        <%end%>
-      <%end%>
-    <%end%>
-<% end %>
+<div class="main">
+  <div class="container">
+    <h1>INSTAGRAM</h1>
+        <div class="form-floating" id="searchBar">
+        <input type="text" class="form-control" id="floatingInput">
+        <label for="floatingInput">Search Here</label>
+        </div>
+        <%=link_to "Your Profile",profiles_path,class: "btn btn-outline-primary",id:"profile"%>
+        <%unless @following.empty?%>
+          <%if @post!=nil%>
+              <%@post.each do |x|%>
+              <div id="eachPost">
+                <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
+                <%=@user_name%>
+                <%if x.image.representable?%>
+                  <%=image_tag x.image.representation(resize_to_limit: [100, 100])%>
+                <%end%>
+                <%=x.caption%>
+                <%=x.location%>
+                <%= render partial: "likes/likes",locals:{post:x}%>
+                <%=link_to "Comment",new_post_comment_path(x),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
+                </div>
+              <%end%>
+            <%end%>
+        <% else %>
+          <%=@message%>
+          <%if @post!=nil%>
+              <%@post.each do |x|%>
+              <div id="eachPost">
+                <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
+                <%=@user_name%>
+                <%if x.image.representable?%>
+                  <%=image_tag x.image.representation(resize_to_limit: [100, 100])%>
+                <%end%>
+                <%=x.caption%>
+                <%=x.location%>
+                <%= render partial: "likes/likes",locals:{post:x.id}%>
+                <%=link_to "Comment",new_post_comment_path(x),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
+                </div>
+              <%end%>
+            <%end%>
+        <% end %>
+  </div>
+</div>
 <script>
   $(document).ready(function(){
     $('#like').on('click',function(){
@@ -40,3 +54,27 @@
   });
   })
 </script>
+<style>
+
+  .main{
+    margin-top: 40px;
+  }
+  #profile{
+    float: right;
+  }
+  #searchBar{
+    margin-bottom: 30px;
+    width: max-content;
+  }
+  .post_img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    top:20px;
+  }
+  #eachPost
+  {
+    margin-bottom: 30px;
+  }
+</style>

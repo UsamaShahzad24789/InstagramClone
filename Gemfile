@@ -74,3 +74,5 @@ group :test do
 end
 
 gem "view_component", "~> 3.5"
+
+gem "ransack", "~> 4.0"

@@ -12,11 +12,8 @@ Rails.application.routes.draw do
   get 'accounts/after_confirmation',to: 'profiles#after_confirmation_path'
   root to: 'homes#index'
   resources :profiles ,only: [:new,:create,:index,:edit]
-  resources :posts ,only: [:new,:create,:destroy,:edit]
-  # get 'posts/options' ,to: 'posts#post_options'
-  resources :comments,only: [:new,:create]
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
+  resources :posts ,only: [:new,:create,:destroy,:edit] do
+    resources :comments,:likes ,shallow: true
+  end
 
 end

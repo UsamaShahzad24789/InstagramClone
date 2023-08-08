@@ -17,7 +17,7 @@ class HomesController < ApplicationController
       @user_name=@profile.user_name
       #Implement a logic that will display post from all the followed account of a profile
      else
-      @message="You'll be shown top ten user's post"
+      @message="Recommended For You"
       follower=Profile.max_followers
       id=follower[0]
       @post=Post.where(profile_id:id)

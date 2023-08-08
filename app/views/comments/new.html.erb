@@ -1,7 +1,14 @@
 <%=turbo_frame_tag "comment" do%>
 <div class="comment">
   <h3>Create a Comment</h3>
-    <%=render 'comment',locals:{comment: @x}%>
+    <div>
+      <%=form_with model: @comment do |form|%>
+      <%=hidden_field_tag :post_id,params[:post_id]%>
+      <%=form.label :comment%>
+      <%=form.text_field :comment%>
+      <%=form.submit%>
+      <%end%>
+    </div>
     <div>
        <%=link_to "Cancel","#",data:{
       controller: "comment-modals",
