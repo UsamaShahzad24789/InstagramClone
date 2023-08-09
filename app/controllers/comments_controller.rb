@@ -1,12 +1,19 @@
 class CommentsController < ApplicationController
+  def index
+    @comment=Comment.where(post_id:params[:post_id])
+  end
+
   def new
-    debugger
+
     @comment=Comment.new
+    @post=Post.find_by(id:params[:post_id])
+    Comment.increment_comment(params[:post_id])
   end
   def create
-    debugger
+
     @comment=Comment.new(comment_params)
     @comment.update(post_id:params[:post_id])
+
     if @comment.save
       redirect_to root_path
     end

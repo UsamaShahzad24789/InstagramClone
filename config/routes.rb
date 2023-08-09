@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'accounts/confirmation_pending',to: 'profiles#after_registration_path'
   get 'accounts/after_confirmation',to: 'profiles#after_confirmation_path'
   root to: 'homes#index'
-  resources :profiles ,only: [:new,:create,:index,:edit]
+  resources :profiles ,only: [:new,:create,:index,:edit,:show]
   resources :posts ,only: [:new,:create,:destroy,:edit] do
     resources :comments,:likes ,shallow: true
   end

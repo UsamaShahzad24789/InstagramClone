@@ -1,14 +1,15 @@
 <div class="main">
   <div class="container">
     <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
-    <h1>Welcome <%=@profile.user_name%></h1>
-        <%= link_to "Sign Out",destroy_account_session_path(),data:{turbo_method: :delete},class:"btn btn-danger",id:"signOut"%>
+    <h1><%=@profile.user_name%></h1>
         <%=link_to "Home Page", root_path, class: "btn btn-primary" ,id:"homePage"%>
-      <div id="info">
-        <%=link_to "Followers: #{@followers}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
-        <%=link_to "Following: #{@following}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
-        <%=link_to "Posts: #{@post_count}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
-      </div>
+
+        <div id="info">
+          <%=link_to "Followers: #{@followers}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
+          <%=link_to "Following: #{@following}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
+          <%=link_to "Posts: #{@post_count}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
+        </div>
+
         <div id="posts">
             <%@posts.each do |x|%>
             <div>
@@ -24,24 +25,8 @@
             </div>
           <%end%>
         </div>
-
-
-        <%=link_to  "Create a New Post",new_post_path,data:{turbo_frame: "modal"},class:"btn btn-primary"%>
   </div>
 </div>
-<%# <script>
-  let options_btn=document.getElementsByClassName('option-btn')
-  console.log(options_btn)
-  // options_btn.map((x)=>{
-  //   x.style.display="none";
-  // })
-
-  let image=document.getElementsByClassName('post_img')
-   const options=image.addEventListener('click',function(){
-      options_btn.click();
-    })
-
-</script> %>
 <style>
   .post_img {
     width: 100px;
@@ -54,17 +39,13 @@
   .main{
     margin-top: 40px;
   }
-  #signOut{
-    float: right;
-    margin-right: 20px;
-  }
   #homePage{
     float: right;
     margin-right: 20px;
   }
   #info
   {
-    margin-left: 40px;
+    margin-left: -15px;
     margin-bottom: 50px;
   }
 </style>

@@ -4,7 +4,7 @@ class Post < ApplicationRecord
   #each post has many likes
   has_many :likes,dependent: :destroy
   #scope
-  scope :likes_count,->(id){Post.where(post_id:id).count}
+  
   #active storage association for posts
   has_one_attached :image
   has_one_attached :video

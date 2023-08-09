@@ -30,6 +30,14 @@ class ProfilesController < ApplicationController
         end
     end
 
+    def show
+        profile_id=params[:id]
+        @profile=Profile.find_by(id:profile_id)
+        @posts=Post.where(profile_id:profile_id).order(created_at: :desc)
+        @followers=Profile.followers_count(profile_id)
+        @following=Profile.following_count(profile_id)
+        @post_count=Profile.post_count(profile_id)
+    end
     def after_registration_path
 
     end

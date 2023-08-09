@@ -2,7 +2,7 @@
 <div class="comment">
   <h3>Create a Comment</h3>
     <div>
-      <%=form_with model: @comment do |form|%>
+      <%=form_with model: [@post,@comment] do |form|%>
       <%=hidden_field_tag :post_id,params[:post_id]%>
       <%=form.label :comment%>
       <%=form.text_field :comment%>

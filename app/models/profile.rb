@@ -19,6 +19,8 @@ class Profile < ApplicationRecord
     scope :followers_count,->(a){Friendship.where(followed_id:a).pluck(:follower_id).count}
     scope :max_followers,->{Friendship.select(:followed_id).group(:followed_id).count.max}
     scope :post_count,->(a){Post.where(profile_id:a).count}
+    scope :likes_count,->(post){Like.where(post_id:post).count}
+    scope :comments_count,->(post){Comment.where(post_id:post).count}
     #Using Active Storage to attach image and videos
     has_one_attached :profile_picture
 end
