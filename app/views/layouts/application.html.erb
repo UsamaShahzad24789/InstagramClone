@@ -19,10 +19,15 @@
               INSTAGRAM
           </a>
            <div class="d-flex justify-content-center" id="searchBar">
-              <input type="text" class="form-control" placeholder="Search Here">
+              <form action="/profiles/search" method="post" id="searchForm" data-turbo-frame="search">
+                <input type="text" name="searchQuery" id="searchQuery" class="form-control" placeholder="Search Here">
+              </form>
           </div>
+            <%= link_to "Sign Out",destroy_account_session_path(),data:{turbo_method: :delete},class:"btn btn-danger",id:"signOut"%>
            <a class="navbar-brand navbar-link" href="/profiles">
-            <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "d-inline-block align-top navImage"%>
+            <%if @profile%>
+              <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "d-inline-block align-top navImage"%>
+            <%end%>
           </a>
         </nav>
       </div>
@@ -32,6 +37,7 @@
     <%=turbo_frame_tag "comment"%>
     <%=turbo_frame_tag "likes"%>
     <%=turbo_frame_tag "postComments"%>
+    <%=turbo_frame_tag "search"%>
     <%= yield %>
   </body>
 </html>

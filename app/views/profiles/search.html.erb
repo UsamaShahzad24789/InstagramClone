@@ -1,0 +1,31 @@
+<%=turbo_frame_tag "search" do%>
+  <div class="search">
+    <h1>Results</h1>
+      <div id="result">
+          <%@result.each do |user|%>
+            <%=image_tag user.profile_picture.representation(resize_to_limit: [250, 250]),id: "searchImg"%>
+            <%=link_to "#{user.user_name}",profile_path(user),class:"btn btn primary"%>
+          <%end%>
+      </div>
+      <div>
+        <%=link_to "Close","#",data:{
+        controller: "search",
+        action: "search#close"
+      },class:"btn btn-secondary"%>
+      </div>
+  </div>
+<%end%>
+<style>
+    #result
+    {
+      margin-bottom: 10px;
+    }
+    #searchImg {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    float: right;
+    top:20px;
+    }
+</style>

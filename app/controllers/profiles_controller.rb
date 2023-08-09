@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
   include CurrentProfile
   before_action :authenticate_account!
   skip_before_action :authenticate_account!, only: %i[after_registration_path after_confirmation_path]
-
+  skip_before_action :verify_authenticity_token, only: [:search]
   def index
     if !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path
@@ -46,6 +46,10 @@ class ProfilesController < ApplicationController
     else
       @has_followed=0
     end
+  end
+
+  def search
+    @result=Profile.where(user_name:params[:searchQuery])
   end
 
   def after_registration_path; end
