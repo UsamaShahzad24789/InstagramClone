@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  # before_action :postId
+
   def index
     @likes = Like.where(post_id: params[:post_id])
   end
@@ -15,4 +15,5 @@ class LikesController < ApplicationController
       redirect_to root_path
     end
   end
+
 end

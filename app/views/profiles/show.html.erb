@@ -2,14 +2,16 @@
   <div class="container">
     <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
     <h1><%=@profile.user_name%></h1>
-        <%=link_to "Home Page", root_path, class: "btn btn-primary" ,id:"homePage"%>
-
         <div id="info">
           <%=link_to "Followers: #{@followers}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
           <%=link_to "Following: #{@following}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
           <%=link_to "Posts: #{@post_count}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
+          <%if @has_followed==1%>
+            <%=link_to "Unfollow",new_post_path,class:"btn btn-primary"%>
+          <% else %>
+            <%=link_to "Follow",new_post_path,class:"btn btn-primary"%>
+          <% end %>
         </div>
-
         <div id="posts">
             <%@posts.each do |x|%>
             <div>
@@ -20,8 +22,6 @@
               <%end%>
               <%=link_to "Likes: #{x.likes_count}",post_likes_path(x),data:{turbo_frame: "likes"},class:"btn btn primary"%>
               <%=link_to "Comments: #{x.comment_count}",post_comments_path(x),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
-              <br>
-
             </div>
           <%end%>
         </div>
@@ -38,10 +38,6 @@
   }
   .main{
     margin-top: 40px;
-  }
-  #homePage{
-    float: right;
-    margin-right: 20px;
   }
   #info
   {

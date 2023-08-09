@@ -6,7 +6,6 @@ class Post < ApplicationRecord
   # each post has many likes
   has_many :likes, dependent: :destroy
 
-
   # active storage association for posts
   has_one_attached :image
   has_one_attached :video

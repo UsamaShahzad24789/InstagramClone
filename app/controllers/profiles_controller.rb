@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   include CurrentProfile
   before_action :authenticate_account!
   skip_before_action :authenticate_account!, only: %i[after_registration_path after_confirmation_path]
+
   def index
     if !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path
@@ -39,6 +40,12 @@ class ProfilesController < ApplicationController
     @followers = Profile.followers_count(profile_id)
     @following = Profile.following_count(profile_id)
     @post_count = Profile.post_count(profile_id)
+    follow_check=Profile.has_followed(current_profile)
+    if(profile_id.to_i==follow_check[0])
+      @has_followed=1
+    else
+      @has_followed=0
+    end
   end
 
   def after_registration_path; end
@@ -50,4 +57,5 @@ class ProfilesController < ApplicationController
   def profile_params
     params.require(:profile).permit(:user_name, :profile_picture)
   end
+
 end

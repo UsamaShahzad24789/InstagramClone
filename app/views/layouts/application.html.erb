@@ -5,18 +5,33 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <div class="main">
+      <div class="container">
+        <nav class="navbar navbar-light bg-white">
+          <a class="navbar-brand navbar-link" href="/">
+            <img src="https://www.freepnglogos.com/uploads/logo-ig-png/logo-ig-instagram-new-logo-vector-download-13.png" width="30" height="30" class="d-inline-block align-top" alt="">
+              INSTAGRAM
+          </a>
+           <div class="d-flex justify-content-center" id="searchBar">
+              <input type="text" class="form-control" placeholder="Search Here">
+          </div>
+           <a class="navbar-brand navbar-link" href="/profiles">
+            <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "d-inline-block align-top navImage"%>
+          </a>
+        </nav>
+      </div>
+    </div>
     <%=turbo_frame_tag "modal"%>
     <%=turbo_frame_tag "PostModal"%>
     <%=turbo_frame_tag "comment"%>
     <%=turbo_frame_tag "likes"%>
     <%=turbo_frame_tag "postComments"%>
-
     <%= yield %>
   </body>
 </html>
