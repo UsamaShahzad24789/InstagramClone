@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   # each post has many likes
   has_many :likes, dependent: :destroy
-  # scope
+
 
   # active storage association for posts
   has_one_attached :image
