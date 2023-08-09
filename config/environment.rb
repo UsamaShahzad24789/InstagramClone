@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 # Load the Rails application.
-require_relative "application"
+require_relative 'application'
 
 # Load the app's custom environment variables here, before environments/*.rb
 app_env_vars = File.join(Rails.root, 'config', 'initializers', 'env_variables.rb')

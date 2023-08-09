@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 class Account < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,:confirmable
+         :recoverable, :rememberable, :validatable, :confirmable
   # before_save :password_required?, only[:create]
-  #each account has one profile
+  # each account has one profile
   has_one :profile, dependent: :destroy
-  #each account has two roles and default role is user
-  enum role: {users: 0, admin: 1}
+  # each account has two roles and default role is user
+  enum role: { users: 0, admin: 1 }
 
   protected
+
   def password_required?
     confirmed? ? super : false
   end
