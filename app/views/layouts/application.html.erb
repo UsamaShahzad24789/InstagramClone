@@ -19,7 +19,7 @@
               INSTAGRAM
           </a>
            <div class="d-flex justify-content-center" id="searchBar">
-              <form action="/profiles/search" method="post" id="searchForm" data-turbo-frame="search">
+              <form action="/profiles/search" method="post" id="searchForm">
                 <input type="text" name="searchQuery" id="searchQuery" class="form-control" placeholder="Search Here">
               </form>
           </div>
@@ -37,7 +37,14 @@
     <%=turbo_frame_tag "comment"%>
     <%=turbo_frame_tag "likes"%>
     <%=turbo_frame_tag "postComments"%>
-    <%=turbo_frame_tag "search"%>
     <%= yield %>
   </body>
 </html>
+<script>
+  $('#searchForm').keydown(function(event) {
+  if (event.keyCode == 13) {
+    event.preventDefault();
+    $('#searchForm').submit();
+  }
+});
+</script>

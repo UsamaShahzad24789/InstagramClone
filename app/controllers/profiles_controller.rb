@@ -41,21 +41,29 @@ class ProfilesController < ApplicationController
   def show
     @current_profile_picture = current_profile_picture
     profile_id = params[:id]
-    @profile = Profile.find_by(id: profile_id)
-    @posts = Post.where(profile_id:).order(created_at: :desc)
-    @followers = Profile.followers_count(profile_id)
-    @following = Profile.following_count(profile_id)
-    @post_count = Profile.post_count(profile_id)
-    follow_check = Profile.has_followed(current_profile)
-    @has_followed = if profile_id.to_i == follow_check[0]
-                      1
-                    else
-                      0
-                    end
+    if profile_id.to_i==current_profile
+      redirect_to profiles_path
+    else
+      @profile = Profile.find_by(id: profile_id)
+      @posts = Post.where(profile_id:).order(created_at: :desc)
+      @followers = Profile.followers_count(profile_id)
+      @following = Profile.following_count(profile_id)
+      @post_count = Profile.post_count(profile_id)
+      follow_check = Profile.has_followed(current_profile)
+      @has_followed = if profile_id.to_i == follow_check[0]
+                        1
+                      else
+                        0
+                      end
+    end
   end
 
   def search
-    @result = Profile.where(user_name: params[:searchQuery])
+    if params[:searchQuery].include? "@"
+      @result = Profile.where(email: params[:searchQuery])
+    else
+      @result = Profile.where(user_name: params[:searchQuery])
+    end
   end
 
   def after_registration_path

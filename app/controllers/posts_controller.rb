@@ -13,7 +13,7 @@ class PostsController < ApplicationController
     @post.update(profile_id: current_profile)
     if @post.save
       respond_to do |format|
-        format.html { redirect_to profiles_path, notice: 'Book Created' }
+        format.html { redirect_to profiles_path, notice: 'Post Created' }
       end
     else
       render :new, status: :unporocessable_entity
