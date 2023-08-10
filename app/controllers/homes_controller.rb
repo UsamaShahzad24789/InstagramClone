@@ -9,10 +9,15 @@ class HomesController < ApplicationController
     if !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path
     else
+      debugger
+      @post=[]
+      @profile=[]
       @following = Profile.following(current_profile)
       if @following.count >= 1
-        @post = Post.where(profile_id: @following)
-        @profile = Profile.find_by(id: @following)
+        @following.each do |x|
+          @post.append(Post.where(profile_id:x))
+          @profile.append(Profile.find_by(id:x))
+        end
       else
         @message = 'Recommended For You'
         follower = Profile.max_followers

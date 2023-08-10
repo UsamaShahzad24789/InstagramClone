@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   get 'accounts/after_confirmation', to: 'profiles#after_confirmation_path'
   post 'profiles/search', to: 'profiles#search'
   root to: 'homes#index'
-  resources :profiles, only: %i[new create index edit show]
+  resources :profiles, only: %i[new create index edit show] do
+    resource :friendship, shallow: true , only: [:new, :edit]
+  end
   resources :posts, only: %i[new create destroy edit] do
     resources :comments, :likes, shallow: true
   end

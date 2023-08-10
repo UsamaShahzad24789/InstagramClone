@@ -41,20 +41,29 @@ class ProfilesController < ApplicationController
   def show
     @current_profile_picture = current_profile_picture
     profile_id = params[:id]
+    @profile = Profile.find_by(id: profile_id)
+    @followers = Profile.followers_count(profile_id)
+    @following = Profile.following_count(profile_id)
+    @post_count = Profile.post_count(profile_id)
+    follow_check = Friendship.where(follower_id: current_profile).where(followed_id:profile_id)
+    followed_id=follow_check.pluck(:followed_id)
+    if follow_check.empty?
+      @has_followed = 0
+    elsif profile_id.to_i == followed_id[0]
+      @has_followed = 1
+    else
+      @has_followed = 0
+    end
+
+
     if profile_id.to_i==current_profile
       redirect_to profiles_path
+    elsif @profile.status=="public_profile"
+        @posts = Post.where(profile_id:).order(created_at: :desc)
+    elsif @profile.status=="private_profile" && @has_followed==1
+        @posts = Post.where(profile_id:).order(created_at: :desc)
     else
-      @profile = Profile.find_by(id: profile_id)
-      @posts = Post.where(profile_id:).order(created_at: :desc)
-      @followers = Profile.followers_count(profile_id)
-      @following = Profile.following_count(profile_id)
-      @post_count = Profile.post_count(profile_id)
-      follow_check = Profile.has_followed(current_profile)
-      @has_followed = if profile_id.to_i == follow_check[0]
-                        1
-                      else
-                        0
-                      end
+      @message="This account is private"
     end
   end
 
