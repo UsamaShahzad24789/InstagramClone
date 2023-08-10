@@ -2,5 +2,6 @@
 
 module Accounts
   class SessionsController < Devise::SessionsController
+    layout 'flow'
   end
 end

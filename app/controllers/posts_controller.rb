@@ -28,14 +28,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit; end
-
-  def post_options; end
-
   private
 
   def post_params
     params.require(:post).permit(:caption, :location, :image)
   end
-
 end

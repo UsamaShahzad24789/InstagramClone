@@ -28,7 +28,7 @@
                 <%end%>
                 <%=x.caption%>
                 <%=x.location%>
-                <%= render partial: "likes/likes",locals:{post:x.id}%>
+                <%= render partial: "likes/likes",locals:{post:x}%>
                 <%=link_to "Comment",new_post_comment_path(x),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
                 </div>
               <%end%>
