@@ -1,39 +1,51 @@
 <div class="main">
   <div class="container">
-        <%unless @following.empty?%>
+        <%if !@following.empty?%>
           <%if @post!=nil%>
-              <%@post.each do |x|%>
-              <div id="eachPost">
-                <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
-                <%=link_to "#{@user_name}",profile_path(@profile.id),class:"btn btn primary"%>
-                <%if x.image.representable?%>
-                  <%=image_tag x.image.representation(resize_to_limit: [100, 100])%>
+              <div >
+                <%@profile.each do |profile|%>
+                  <%@post.each do |post|%>
+                      <%if profile.posts.count>0 && post.profile_id==profile.id%>
+                          <div id="eachPost">
+                            <%=image_tag profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
+                            <%=link_to "#{profile.user_name}",profile_path(profile.id),class:"btn btn primary"%>
+                              <%if post.image.representable?%>
+                                <%=image_tag post.image.representation(resize_to_limit: [100, 100])%>
+                              <%end%>
+                              <%=post.caption%>
+                              <%=post.location%>
+                              <%= render partial: "likes/likes",locals:{post:post}%>
+                              <%=link_to "Comment",new_post_comment_path(post),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
+                          </div>
+                          <% end %>
+                  <%end%>
                 <%end%>
-                <%=x.caption%>
-                <%=x.location%>
-                <%= render partial: "likes/likes",locals:{post:x}%>
-                <%=link_to "Comment",new_post_comment_path(x),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
-                </div>
-              <%end%>
-            <%end%>
-        <% else %>
+              </div>
+          <%end%>
+        <%else%>
           <%=@message%>
           <%if @post!=nil%>
-              <%@post.each do |x|%>
-              <div id="eachPost">
-                <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
-                <%=link_to "#{@user_name}",profile_path(@profile.id),class:"btn btn primary"%>
-                <%if x.image.representable?%>
-                  <%=image_tag x.image.representation(resize_to_limit: [100, 100])%>
+             <div >
+                <%@profile.each do |profile|%>
+                  <%@post.each do |post|%>
+                      <%if profile.posts.count>0 && post.profile_id==profile.id%>
+                          <div id="eachPost">
+                            <%=image_tag profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
+                            <%=link_to "#{profile.user_name}",profile_path(profile.id),class:"btn btn primary"%>
+                              <%if post.image.representable?%>
+                                <%=image_tag post.image.representation(resize_to_limit: [100, 100])%>
+                              <%end%>
+                              <%=post.caption%>
+                              <%=post.location%>
+                              <%= render partial: "likes/likes",locals:{post:post}%>
+                              <%=link_to "Comment",new_post_comment_path(post),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
+                          </div>
+                          <% end %>
+                  <%end%>
                 <%end%>
-                <%=x.caption%>
-                <%=x.location%>
-                <%= render partial: "likes/likes",locals:{post:x}%>
-                <%=link_to "Comment",new_post_comment_path(x),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
-                </div>
-              <%end%>
-            <%end%>
+              </div>
         <% end %>
+        <%end%>
   </div>
 </div>
 <style>

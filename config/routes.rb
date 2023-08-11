@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post 'profiles/search', to: 'profiles#search'
   root to: 'homes#index'
   resources :profiles, only: %i[new create index edit show] do
-    resource :friendship, shallow: true , only: [:new, :edit]
+    resource :friendship, shallow: true, only: %i[new edit]
   end
   resources :posts, only: %i[new create destroy edit] do
     resources :comments, :likes, shallow: true
