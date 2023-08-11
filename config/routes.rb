@@ -12,9 +12,14 @@ Rails.application.routes.draw do
   get 'accounts/confirmation_pending', to: 'profiles#after_registration_path'
   get 'accounts/after_confirmation', to: 'profiles#after_confirmation_path'
   post 'profiles/search', to: 'profiles#search'
+  # get '/profiles/:profile_id/friendship/follow', to: 'friendships#follow'
+  # get ' /profiles/:profile_id/friendship/unfollow', to: 'friendships#unfollow'
   root to: 'homes#index'
   resources :profiles, only: %i[new create index edit show] do
-    resource :friendship, shallow: true, only: %i[new edit]
+    member do
+      get '/friendships/follow', to: 'friendships#follow'
+      get 'friendships/unfollow', to: 'friendships#unfollow'
+    end
   end
   resources :posts, only: %i[new create destroy edit] do
     resources :comments, :likes, shallow: true

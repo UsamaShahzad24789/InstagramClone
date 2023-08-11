@@ -7,9 +7,9 @@
           <%=link_to "Following: #{@following}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
           <%=link_to "Posts: #{@post_count}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
           <%if @has_followed==1%>
-            <%=link_to "Unfollow",edit_profile_friendship_path(@profile.id),class:"btn btn-primary"%>
+            <%=link_to "Unfollow",friendships_unfollow_profile_path(@profile.id),class:"btn btn-primary"%>
           <% else %>
-            <%=link_to "Follow",new_profile_friendship_path(@profile.id),class:"btn btn-primary"%>
+            <%=link_to "Follow",friendships_follow_profile_path(@profile.id),class:"btn btn-primary"%>
           <% end %>
         </div>
         <% if @profile.status=="public_profile" %>
