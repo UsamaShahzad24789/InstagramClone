@@ -1,30 +1,54 @@
 <div class="main">
   <div class="container">
-    <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
+   <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
     <h1><%=@profile.user_name%></h1>
         <div id="info">
           <%=link_to "Followers: #{@followers}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
           <%=link_to "Following: #{@following}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
           <%=link_to "Posts: #{@post_count}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
           <%if @has_followed==1%>
-            <%=link_to "Unfollow",new_post_path,class:"btn btn-primary"%>
+            <%=link_to "Unfollow",friendships_unfollow_profile_path(@profile.id),class:"btn btn-primary"%>
           <% else %>
-            <%=link_to "Follow",new_post_path,class:"btn btn-primary"%>
+            <%=link_to "Follow",friendships_follow_profile_path(@profile.id),class:"btn btn-primary"%>
           <% end %>
         </div>
-        <div id="posts">
-            <%@posts.each do |x|%>
-            <div>
-              <%=x.caption%>
-              <%=x.location%>
-              <%if x.image.representable?%>
-                <%=image_tag x.image.representation(resize_to_limit: [100, 100]), class:"img"%>
+        <% if @profile.status=="public_profile" %>
+            <div id="posts">
+                <%@posts.each do |x|%>
+                <div>
+                  <%=x.caption%>
+                  <%=x.location%>
+                  <%if x.image.representable?%>
+                    <%=image_tag x.image.representation(resize_to_limit: [100, 100]), class:"img"%>
+                  <%end%>
+                  <%=link_to "Likes: #{x.likes_count}",post_likes_path(x),data:{turbo_frame: "likes"},class:"btn btn primary"%>
+                  <%=link_to "Comments: #{x.comment_count}",post_comments_path(x),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
+                   <%= render partial: "likes/likes",locals:{post:x}%>
+                  <%=link_to "Comment",new_post_comment_path(x),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
+                </div>
               <%end%>
-              <%=link_to "Likes: #{x.likes_count}",post_likes_path(x),data:{turbo_frame: "likes"},class:"btn btn primary"%>
-              <%=link_to "Comments: #{x.comment_count}",post_comments_path(x),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
             </div>
-          <%end%>
-        </div>
+          <%elsif @profile.status=="private_profile" && @has_followed==1%>
+              <div id="posts">
+                <%@posts.each do |x|%>
+                <div>
+                  <%=x.caption%>
+                  <%=x.location%>
+                  <%if x.image.representable?%>
+                    <%=image_tag x.image.representation(resize_to_limit: [100, 100]), class:"img"%>
+                  <%end%>
+                  <%=link_to "Likes: #{x.likes_count}",post_likes_path(x),data:{turbo_frame: "likes"},class:"btn btn primary"%>
+                  <%=link_to "Comments: #{x.comment_count}",post_comments_path(x),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
+                  <%= render partial: "likes/likes",locals:{post:x}%>
+                  <%=link_to "Comment",new_post_comment_path(x),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
+                </div>
+              <%end%>
+            </div>
+          <%else%>
+          <div id="message">
+              <h1><%=@message%></h1>
+          </div>
+        <% end %>
   </div>
 </div>
 <style>
@@ -43,5 +67,9 @@
   {
     margin-left: -15px;
     margin-bottom: 50px;
+  }
+  #message
+  {
+    text-align: center;
   }
 </style>
