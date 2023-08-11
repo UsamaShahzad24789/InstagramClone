@@ -1,0 +1,22 @@
+<%=turbo_frame_tag "modal" do%>
+  <div class="modal">
+    <div>
+       <h3>Create a post</h3>
+      <%=form_with model: @post do |form|%>
+        <%=form.label :caption%>
+        <%=form.text_field :caption%>
+        <%=form.label :location%>
+        <%=form.text_field :location%>
+        <%=form.label :image%>
+        <%=form.file_field :image%>
+        <%=form.submit class:"btn btn-primary" %>
+      <%end%>
+    </div>
+    <div>
+       <%=link_to "Cancel","#",data:{
+      controller: "modals",
+      action: "modals#close"
+    },class:"btn btn-secondary"%>
+    </div>
+  </div>
+<%end%>

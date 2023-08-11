@@ -1,0 +1,15 @@
+<%=turbo_frame_tag "PostModal" do%>
+  <div class="PostModal">
+    <div>
+        <h1>Options</h1>
+         <%= link_to "Delete" ,post_path(post),data:{turbo_method: :delete},class:"btn btn-danger"%>
+         <%= link_to "Edit" ,edit_post_path(post),class:"btn btn-secondary"%>
+      </div>
+       <div>
+          <%=link_to "Cancel","#",data:{
+          controller: "post_modals",
+          action: "post_modals#close"
+        },class:"btn btn-secondary"%>
+      </div>
+  </div>
+<%end%>
