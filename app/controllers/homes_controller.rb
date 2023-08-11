@@ -44,7 +44,8 @@ def recommended_posts
   @profile = []
   follower.each do |x|
     profile_id=current_profile
-    if !(x.followed_id==profile_id)
+    statusCheck=Profile.find_by(id:x.followed_id)
+    if (!(x.followed_id==profile_id) && !(statusCheck.status=="private_profile"))
       data = Post.where(profile_id: x.followed_id)
       @post.append(data) if data.count != 0
       @profile.append(Profile.find_by(id: x.followed_id))
