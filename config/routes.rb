@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
   resources :archives, only: [:index] do
     member do
-      get '/archives/unArchive', to: 'archives#unArchive_post'
+      get '/archives/unArchive', to: 'archives#un_archive_post'
     end
   end
 end

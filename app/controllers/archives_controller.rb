@@ -23,7 +23,8 @@ class ArchivesController < ApplicationController
 
   def archive_post_function
     post = Post.find_by(id: params[:id])
-    archive_post = Archive.new
+    new_post = Post.create
+    archive_post = Archive.new(id: new_post.id)
     archive_post.caption = post.caption
     archive_post.location = post.location
     archive_post.comment_count = post.comment_count
@@ -32,7 +33,6 @@ class ArchivesController < ApplicationController
     return unless archive_post.save
 
     archive_post.update(image: post.image_blob)
-    Post.create(id: archive_post.id)
     likes = Like.where(post_id: post.id)
     likes.update_all(post_id: archive_post.id)
     comments = Comment.where(post_id: post.id)
