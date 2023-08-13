@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_account!
   skip_before_action :authenticate_account!, only: %i[after_registration_path after_confirmation_path]
   skip_before_action :verify_authenticity_token, only: [:search]
-  layout "flow", only: [:new]
+  layout 'flow', only: [:new]
   def index
     if !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path

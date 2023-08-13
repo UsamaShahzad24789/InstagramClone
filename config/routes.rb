@@ -26,9 +26,8 @@ Rails.application.routes.draw do
     resources :comments, :likes, shallow: true
   end
   resources :archives, only: [:index] do
-    member do 
+    member do
       get '/archives/unArchive', to: 'archives#unArchive_post'
     end
   end
-  
 end

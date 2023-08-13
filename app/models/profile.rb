@@ -7,7 +7,7 @@ class Profile < ApplicationRecord
   # each profile has many posts
   has_many :posts, dependent: :destroy
 
-  #has one archive
+  # has one archive
   has_one :archive, dependent: :destroy
 
   # Creating self association in a middle table of Friendship
