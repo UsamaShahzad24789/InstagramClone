@@ -298,6 +298,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.6)
+  rake
   ransack (~> 4.0)
   rubocop
   sassc-rails

@@ -18,6 +18,8 @@ gem 'image_processing', '>= 1.2'
 
 gem 'rubocop'
 
+gem 'rake'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 

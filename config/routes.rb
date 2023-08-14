@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     confirmations: 'accounts/confirmations'
 
   }
-
+  get '/admins', to: 'admins#index'
   get 'accounts/confirmation_pending', to: 'profiles#after_registration_path'
   get 'accounts/after_confirmation', to: 'profiles#after_confirmation_path'
   post 'profiles/search', to: 'profiles#search'

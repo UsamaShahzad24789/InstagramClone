@@ -6,7 +6,9 @@ class HomesController < ApplicationController
   before_action :authenticate_account!
 
   def index
-    if !Profile.account_has_profile(current_account.id).exists?
+    if current_account.role=="admin"
+      redirect_to admins_path
+    elsif !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path
     else
       fetch_posts
