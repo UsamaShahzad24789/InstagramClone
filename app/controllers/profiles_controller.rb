@@ -3,7 +3,7 @@
 class ProfilesController < ApplicationController
   include CurrentProfile
   include ProfilePicture
-
+  include AvatarCreator
   before_action :authenticate_account!
   skip_before_action :authenticate_account!, only: %i[after_registration_path after_confirmation_path]
   skip_before_action :verify_authenticity_token, only: [:search]
@@ -29,6 +29,10 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(profile_params)
     @profile.update(email: current_account.email, account_id: current_account.id)
     if @profile.save
+      debugger
+      if !@profile.profile_picture.representable?
+        name_creator
+      end
       respond_to do |format|
         format.html { redirect_to profiles_path, notice: 'Post was successfully Created.' }
       end
