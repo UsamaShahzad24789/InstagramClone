@@ -6,7 +6,7 @@ module AvatarCreator
         def name_creator
             debugger
             profile = Profile.find_by(account_id: current_account.id)
-            user_name_for_api = profile.user_name.gsub(" ", "+")
+            @user_name_for_api = profile.user_name.gsub(" ", "+")
             api_url = "https://ui-avatars.com/api/?name=#{user_name_for_api}"
         
             response = HTTParty.get(api_url)

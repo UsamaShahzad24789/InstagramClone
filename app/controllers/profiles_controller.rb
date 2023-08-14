@@ -14,6 +14,7 @@ class ProfilesController < ApplicationController
     else
       @current_profile_picture = current_profile_picture
       @profile = Profile.find_by(account_id: current_account.id)
+      @user_name_for_api = @profile.user_name.gsub(" ", "+")
       @posts = Post.where(profile_id: current_profile).order(created_at: :desc)
       @followers = Profile.followers_count(@profile.id)
       @following = Profile.following_count(@profile.id)
