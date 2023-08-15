@@ -11,7 +11,7 @@ class Account < ApplicationRecord
   # each account has two roles and default role is user
   enum role: { users: 0, admin: 1 }
 
-  enum status: {de_activated: 0, activated: 1}
+  enum status: { de_activated: 0, activated: 1 }
 
   protected
 

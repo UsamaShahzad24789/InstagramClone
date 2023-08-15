@@ -9,8 +9,8 @@ class ProfilesController < ApplicationController
   before_action :check_status
   skip_before_action :authenticate_account!, only: %i[after_registration_path after_confirmation_path]
   skip_before_action :verify_authenticity_token, only: [:search]
-  skip_before_action :check_status, only: [:after_registration_path,:after_confirmation_path]
-  skip_before_action :role, only: [:after_registration_path,:after_confirmation_path]
+  skip_before_action :check_status, only: %i[after_registration_path after_confirmation_path]
+  skip_before_action :role, only: %i[after_registration_path after_confirmation_path]
 
   layout 'flow', only: [:new]
   def index
@@ -19,7 +19,7 @@ class ProfilesController < ApplicationController
     else
       @current_profile_picture = current_profile_picture
       @profile = Profile.find_by(account_id: current_account.id)
-      @user_name_for_api = @profile.user_name.gsub(" ", "+")
+      @user_name_for_api = @profile.user_name.gsub(' ', '+')
       @posts = Post.where(profile_id: current_profile).order(created_at: :desc)
       @followers = Profile.followers_count(@profile.id)
       @following = Profile.following_count(@profile.id)
@@ -35,9 +35,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(profile_params)
     @profile.update(email: current_account.email, account_id: current_account.id)
     if @profile.save
-      if !@profile.profile_picture.representable?
-        name_creator
-      end
+      name_creator unless @profile.profile_picture.representable?
       respond_to do |format|
         format.html { redirect_to profiles_path, notice: 'Post was successfully Created.' }
       end
