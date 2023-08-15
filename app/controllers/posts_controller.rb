@@ -3,7 +3,7 @@
 class PostsController < ApplicationController
   include CurrentProfile
   before_action :authenticate_account!
-
+  
   def new
     @post = Post.new
   end
