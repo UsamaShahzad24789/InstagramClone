@@ -3,8 +3,7 @@
 class PostsController < ApplicationController
   include CurrentProfile
   before_action :authenticate_account!
-  # before_action :check_status
-  # before_action :role
+
   def new
     @post = Post.new
   end
@@ -12,8 +11,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.update(profile_id: current_profile)
+    @postcount=Post.all.count
     if @post.save
       respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend('posts', partial: 'posts/post', locals: {post: @post}) }
         format.html { redirect_to profiles_path, notice: 'Post Created' }
       end
     else

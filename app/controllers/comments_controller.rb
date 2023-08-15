@@ -17,7 +17,6 @@ class CommentsController < ApplicationController
 
     return unless @comment.save
 
-    redirect_to root_path
   end
 
   def comment_params

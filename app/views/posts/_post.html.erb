@@ -1,0 +1,21 @@
+<div class="post">
+  <%=post.caption%>
+  <%=post.location%>
+  <div>
+    <%if post.image.representable?%>
+      <%=image_tag post.image.representation(resize_to_limit: [400, 400]), class:"img"%>
+    <%end%>
+  </div>
+  <div>
+    <%=link_to "Likes: #{post.likes_count}",post_likes_path(post),data:{turbo_frame: "likes"},class:"btn btn primary"%>
+  <%=link_to "Comments: #{post.comment_count}",post_comments_path(post),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
+  <%=link_to "Archive Post",archives_archive_post_post_path(post),class:"btn btn-outline-danger"%>
+  </div>
+</div>
+<style>
+  .post
+  {
+    padding: 20px;
+  }
+
+</style>

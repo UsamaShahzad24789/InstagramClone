@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :posts, only: %i[new create destroy edit] do
     member do
       get '/archives/archive_post', to: 'archives#archive_post'
+      get '/likes/un_like', to: 'likes#un_like'
     end
     resources :comments, :likes, shallow: true
   end
