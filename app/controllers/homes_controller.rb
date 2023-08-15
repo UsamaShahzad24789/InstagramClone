@@ -4,11 +4,11 @@ class HomesController < ApplicationController
   include CurrentProfile
   include ProfilePicture
   before_action :authenticate_account!
+  before_action :check_status
+  before_action :role
 
   def index
-    if current_account.role=="admin"
-      redirect_to admins_path
-    elsif !Profile.account_has_profile(current_account.id).exists?
+    if !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path
     else
       fetch_posts

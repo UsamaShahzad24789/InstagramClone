@@ -4,8 +4,7 @@
       <%=link_to  "Create a New Post",new_post_path,data:{turbo_frame: "modal"},class:"btn btn-primary" ,id:"createPost"%>
       <%=link_to "Archived Posts",archives_path,class:"btn btn-outline-danger",id:"archived"%>
     </div>
-    <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%> 
-    <%= image_tag src="https://ui-avatars.com/api/?name=#{@user_name_for_api}",class: "post_img" %>
+    <%=image_tag @profile.profile_picture.representation(resize_to_limit: [500, 500]),class: "post_img"%>
     <h1>Welcome <%=@profile.user_name%></h1>
       <div id="info">
         <%=link_to "Followers: #{@followers}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>

@@ -5,8 +5,13 @@ class ProfilesController < ApplicationController
   include ProfilePicture
   include AvatarCreator
   before_action :authenticate_account!
+  before_action :role
+  before_action :check_status
   skip_before_action :authenticate_account!, only: %i[after_registration_path after_confirmation_path]
   skip_before_action :verify_authenticity_token, only: [:search]
+  skip_before_action :check_status, only: [:after_registration_path,:after_confirmation_path]
+  skip_before_action :role, only: [:after_registration_path,:after_confirmation_path]
+
   layout 'flow', only: [:new]
   def index
     if !Profile.account_has_profile(current_account.id).exists?
@@ -30,7 +35,6 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(profile_params)
     @profile.update(email: current_account.email, account_id: current_account.id)
     if @profile.save
-      debugger
       if !@profile.profile_picture.representable?
         name_creator
       end

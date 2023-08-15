@@ -13,7 +13,7 @@
           <% end %>
         </div>
         <% if @profile.status=="public_profile" %>
-            <div id="posts">
+            <div class="posts">
                 <%@posts.each do |x|%>
                 <div>
                   <%=x.caption%>
@@ -29,7 +29,7 @@
               <%end%>
             </div>
           <%elsif @profile.status=="private_profile" && @has_followed==1%>
-              <div id="posts">
+              <div class="posts">
                 <%@posts.each do |x|%>
                 <div>
                   <%=x.caption%>
@@ -71,5 +71,9 @@
   #message
   {
     text-align: center;
+  }
+  .posts
+  {
+    padding: 20px;
   }
 </style>

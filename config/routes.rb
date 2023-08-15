@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
   }
   get '/admins', to: 'admins#index'
+  get '/admins/status', to: 'admins#status'
+  get '/admins/de_activate/:account_id', to: "admins#de_activate" ,as: :admins_de_activate
+  get '/admins/activate/:account_id', to: "admins#activate" ,as: :admins_activate
   get 'accounts/confirmation_pending', to: 'profiles#after_registration_path'
   get 'accounts/after_confirmation', to: 'profiles#after_confirmation_path'
   post 'profiles/search', to: 'profiles#search'
