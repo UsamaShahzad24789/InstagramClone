@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     end
     resources :comments, :likes, shallow: true
   end
-  delete '/posts/destroy', to: "posts#destroy"
+  delete '/posts/destroy', to: 'posts#destroy'
   resources :archives, only: [:index] do
     member do
       get '/archives/unArchive', to: 'archives#un_archive_post'

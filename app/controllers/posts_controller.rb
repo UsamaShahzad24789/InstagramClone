@@ -25,18 +25,15 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find_by(id: params[:post_id])
     @post.destroy
-    respond_to do |format|
-      format.js
-    end
+    respond_to(&:js)
   end
 
-
   def edit
-    @post=Post.find_by(id:params[:id])
+    @post = Post.find_by(id: params[:id])
   end
 
   def update
-    @post=Post.find_by(id:params[:id])
+    @post = Post.find_by(id: params[:id])
     @post.update(edit_params)
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.replace("onePost-#{@post.id}", partial: 'posts/post', locals: { post: @post }) }
@@ -49,6 +46,7 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:caption, :location, :image)
   end
+
   def edit_params
     params.require(:post).permit(:caption, :location)
   end
