@@ -1,9 +1,9 @@
-<div class="post">
+<div class="post" id="onePost-<%=post.id%>">
   <%=post.caption%>
   <%=post.location%>
   <div>
     <%if post.image.representable?%>
-      <%=image_tag post.image.representation(resize_to_limit: [400, 400]), class:"img"%>
+      <%=image_tag post.image.representation(resize_to_limit: [400, 400]), class:"img", id:"oneImg" ,:"data-postId"=>post.id%>
     <%end%>
   </div>
   <div>
@@ -17,5 +17,30 @@
   {
     padding: 20px;
   }
-
 </style>
+<script>
+      var myModal = document.getElementById('exampleModal')
+      a=document.getElementsByClassName("img")
+      myModal.hidden= true
+      Object.keys(a).forEach((x)=>{a[x].addEventListener('click',(e)=>{
+          myModal.hidden= false
+          console.log(a[x])
+          b=a[x].dataset.postid
+          console.log(myModal)
+          document.getElementById("ModalPostId").innerHTML=b
+          //on delete btn click
+          const btn=document.getElementById("deleteBtn")
+          btn.addEventListener('click',()=>{
+            $.ajax({
+                  url: '/posts/destroy',
+                  method: 'DELETE',
+                  data: {post_id: b},
+            })
+          })
+      })})
+      window.onclick = function(event) {
+          if (event.target.id != "exampleModal" && event.target.id != "oneImg") {
+                myModal.hidden= true
+          }
+        }
+  </script>

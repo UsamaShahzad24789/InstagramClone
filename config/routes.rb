@@ -22,13 +22,14 @@ Rails.application.routes.draw do
       get 'friendships/unfollow', to: 'friendships#unfollow'
     end
   end
-  resources :posts, only: %i[new create destroy edit] do
+  resources :posts, only: %i[new create edit] do
     member do
       get '/archives/archive_post', to: 'archives#archive_post'
       get '/likes/un_like', to: 'likes#un_like'
     end
     resources :comments, :likes, shallow: true
   end
+  delete '/posts/destroy', to: "posts#destroy"
   resources :archives, only: [:index] do
     member do
       get '/archives/unArchive', to: 'archives#un_archive_post'

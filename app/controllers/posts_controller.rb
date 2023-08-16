@@ -3,7 +3,7 @@
 class PostsController < ApplicationController
   include CurrentProfile
   before_action :authenticate_account!
-
+  skip_before_action :verify_authenticity_token
   def new
     @post = Post.new
   end
@@ -23,10 +23,10 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find_by(id: params[:post_id])
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to profiles_path, notice: 'Post was successfully destroyed.' }
+      format.js
     end
   end
 
