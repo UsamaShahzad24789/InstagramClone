@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'accounts/after_confirmation', to: 'profiles#after_confirmation_path'
   post 'profiles/search', to: 'profiles#search'
   root to: 'homes#index'
-  resources :profiles, only: %i[new create index edit show] do
+  resources :profiles, only: %i[new create index edit show update] do
     member do
       get '/friendships/follow', to: 'friendships#follow'
       get 'friendships/unfollow', to: 'friendships#unfollow'

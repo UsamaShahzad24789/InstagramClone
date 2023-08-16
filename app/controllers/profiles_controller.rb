@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
   skip_before_action :check_status, only: %i[after_registration_path after_confirmation_path]
   skip_before_action :role, only: %i[after_registration_path after_confirmation_path]
 
-  layout 'flow', only: [:new]
+  layout 'flow', only: [:new,:edit]
   def index
     if !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path
@@ -45,6 +45,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
+    @current_profile=Profile.find_by(id:current_profile)
     @current_profile_picture = current_profile_picture
     profile_id = params[:id]
     @profile = Profile.find_by(id: profile_id)
@@ -72,7 +73,28 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def edit
+    @profile=Profile.find_by(id:params[:id])
+  end
+
+  def update
+    @profile=Profile.find_by(id:params[:id])
+    @profile.update(profile_params)
+    @profile.update(email: current_account.email, account_id: current_account.id)
+    @profile.update(status:0)
+    if @profile.save
+      name_creator unless @profile.profile_picture.representable?
+      respond_to do |format|
+        format.html { redirect_to profiles_path, notice: 'Post was successfully Created.' }
+      end
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def search
+    @current_profile=Profile.find_by(id:current_profile)
+    @current_profile_picture = current_profile_picture
     @result = if params[:searchQuery].include? '@'
                 Profile.where(email: params[:searchQuery])
               else
