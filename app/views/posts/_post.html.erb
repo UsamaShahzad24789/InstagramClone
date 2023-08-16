@@ -24,9 +24,9 @@
       myModal.hidden= true
       Object.keys(a).forEach((x)=>{a[x].addEventListener('click',(e)=>{
           myModal.hidden= false
-          console.log(a[x])
+          // console.log(a[x])
           b=a[x].dataset.postid
-          console.log(myModal)
+          // console.log(myModal)
           document.getElementById("ModalPostId").innerHTML=b
           //on delete btn click
           const btn=document.getElementById("deleteBtn")
@@ -37,9 +37,18 @@
                   data: {post_id: b},
             })
           })
+          const editBtn=document.getElementById("editBtn")
+          const editPost=document.getElementById("editPost")
+          editPost.hidden=true
+          editBtn.addEventListener('click',(e)=>{
+            editPost.hidden=false
+            editPost.click()
+            editPost.setAttribute("href","/posts/"+b+"/edit")
+          })
       })})
+
       window.onclick = function(event) {
-          if (event.target.id != "exampleModal" && event.target.id != "oneImg") {
+          if (event.target.id != "exampleModal" && event.target.id != "oneImg" && event.target.id != "editBtn") {
                 myModal.hidden= true
           }
         }

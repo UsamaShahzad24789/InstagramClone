@@ -30,9 +30,26 @@ class PostsController < ApplicationController
     end
   end
 
+
+  def edit
+    @post=Post.find_by(id:params[:id])
+  end
+
+  def update
+    @post=Post.find_by(id:params[:id])
+    @post.update(edit_params)
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("onePost-#{@post.id}", partial: 'posts/post', locals: { post: @post }) }
+      format.html { redirect_to profiles_path, notice: 'Post Created' }
+    end
+  end
+
   private
 
   def post_params
     params.require(:post).permit(:caption, :location, :image)
+  end
+  def edit_params
+    params.require(:post).permit(:caption, :location)
   end
 end
