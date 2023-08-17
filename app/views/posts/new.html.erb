@@ -3,13 +3,21 @@
     <div>
        <h3>Create a post</h3>
       <%=form_with model: @post do |form|%>
-        <%=form.label :caption%>
-        <%=form.text_field :caption%>
-        <%=form.label :location%>
-        <%=form.text_field :location%>
-        <%=form.label :image%>
-        <%=form.file_field :image%>
-        <%=form.submit class:"btn btn-primary" %>
+        <div class="field">
+           <%=form.label :caption%>
+           <%=form.text_field :caption ,class: 'form-control'%>
+        </div>
+        <div class="field">
+          <%=form.label :location%>
+           <%=form.text_field :location ,class: 'form-control'%>
+        </div>
+        <div class="field">
+           <%=form.label :image%>
+            <%=form.file_field :image ,class: 'form-control'%>
+        </div>
+        <div class="submit">
+          <%=form.submit class:"btn btn-primary" %>
+        </div>
       <%end%>
     </div>
     <div>

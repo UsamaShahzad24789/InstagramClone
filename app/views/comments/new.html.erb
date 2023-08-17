@@ -5,8 +5,10 @@
       <%=form_with model: [@post,@comment] do |form|%>
       <%=hidden_field_tag :post_id,params[:post_id]%>
       <%=form.label :comment%>
-      <%=form.text_field :comment%>
-      <%=form.submit id:"createCommentBtn"%>
+      <%=form.text_field :comment ,class: 'form-control'%>
+      <div class="submit">
+        <%=form.submit id:"createCommentBtn" ,class: "btn btn-outline-success"%>
+      </div>
       <%end%>
     </div>
     <div>

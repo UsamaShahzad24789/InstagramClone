@@ -47,18 +47,23 @@
   </body>
 </html>
 <script>
+  //for search by pressing enter
   $('#searchForm').keydown(function(event) {
   if (event.keyCode == 13) {
     event.preventDefault();
     $('#searchForm').submit();
   }
   });
+
+  //for opening a popup from profile icon
   var profile_popup=document.getElementById("profile_popup")
   profile_popup.hidden=true
   document.getElementById("profileBtn").addEventListener('click',()=>{
       console.log("Hello")
       profile_popup.hidden=false
   })
+
+  //skip this event for certain targets
   window.onclick = function(event) {
           if (event.target.id != "profile_popup" && event.target.id != "profileBtn" && event.target.id != "navImageBtn" && event.target.id!="profileImage" &&
           event.target.id != "exampleModal" && event.target.id != "oneImg" && event.target.id != "editBtn"
@@ -69,6 +74,7 @@
                  myModal.hidden= true
           }
         }
+
     //for changing status
     var checkBox=document.getElementById("checkBoxBtn")
     checkBox.addEventListener('click',function(){
@@ -77,7 +83,7 @@
       {
         console.log("hi")
         $.ajax({
-          url: 'profiles/status',
+          url: '/profiles/status',
           method: 'GET',
           data: {profile_id: id},
           success: function(data){
@@ -85,10 +91,10 @@
         })
       }
       else
-      {
+    {
         console.log("bye")
         $.ajax({
-          url: 'profiles/status',
+          url: '/profiles/status',
           method: 'GET',
           data: {profile_id: id},
           success: function(data){

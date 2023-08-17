@@ -1,6 +1,4 @@
 <div class="post" id="onePost-<%=post.id%>">
-  <%=post.caption%>
-  <%=post.location%>
   <div>
     <%if post.image.attached?%>
       <%if  post.image.content_type.include?("image")%>
@@ -9,6 +7,9 @@
         <%=video_tag url_for(post.image),controls: true,width: "400",height: "auto",class:"img",id:"oneVideo",:"data-postId"=>post.id%>
       <% end %>
     <%end%>
+  </div>
+  <div>
+    <p>"<%=post.caption%>" Location: <%=post.location%></p>
   </div>
   <div>
     <%=link_to "Likes: #{post.likes_count}",post_likes_path(post),data:{turbo_frame: "likes"},class:"btn btn primary"%>
@@ -23,16 +24,13 @@
   }
 </style>
 <script>
+      //open a modal with edit and delete by clicking on any post
       var myModal = document.getElementById('exampleModal')
       a=document.getElementsByClassName("img")
       myModal.hidden= true
       Object.keys(a).forEach((x)=>{a[x].addEventListener('click',(e)=>{
           myModal.hidden= false
-          // console.log(a[x])
           b=a[x].dataset.postid
-          // console.log(myModal)
-          // document.getElementById("ModalPostId").innerHTML=b
-          //on delete btn click
           const btn=document.getElementById("deleteBtn")
           btn.addEventListener('click',()=>{
             $.ajax({

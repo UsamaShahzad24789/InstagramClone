@@ -11,8 +11,7 @@
                             <div class="col lg-2">
                               <%=image_tag profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
                             <%=link_to "#{profile.user_name}",profile_path(profile.id),class:"btn btn primary"%>
-                             <%=post.caption%>
-                              <%=post.location%>
+                              <p class="location"><%=post.location%></p>
                              <div class="eachImage">
                                <%if post.image.attached?%>
                                   <%if  post.image.content_type.include?("image")%>
@@ -21,6 +20,9 @@
                                     <%=video_tag url_for(post.image),controls: true,width: "600",height: "auto"%>
                                   <% end %>
                                 <%end%>
+                             </div>
+                             <div>
+                              <p>"<%=post.caption%>"</p>
                              </div>
                               <%if !(post.likes.find_by(email:current_account.email))%>
                                 <%= render partial: "likes/likes",locals:{post:post}%>
@@ -48,8 +50,7 @@
                             <div class="col lg-4">
                               <%=image_tag profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
                             <%=link_to "#{profile.user_name}",profile_path(profile.id),class:"btn btn primary"%>
-                             <%=post.caption%>
-                              <%=post.location%>
+                              <p class="location"><%=post.location%></p>
                              <div class="eachImage">
                               <%if post.image.attached?%>
                                 <%if  post.image.content_type.include?("image")%>
@@ -58,6 +59,9 @@
                                   <%=video_tag url_for(post.image),controls: true,width: "600",height: "auto"%>
                                 <% end %>
                               <%end%>
+                             </div>
+                             <div>
+                             <p>"<%=post.caption%>"</p>
                              </div>
                               <%if !(post.likes.find_by(email:current_account.email))%>
                                 <%= render partial: "likes/likes",locals:{post:post}%>

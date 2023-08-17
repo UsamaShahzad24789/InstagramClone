@@ -28,7 +28,7 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    background-color:#D6E5FA;
+    background-color:#D8D9DA;
     height: min-content;
     width: max-content;
 }
@@ -43,7 +43,7 @@
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  background-color:#D6E5FA;
+  background-color:#D8D9DA;
   height: min-content;
   width: max-content;
 }
@@ -89,7 +89,7 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    background-color:#CEE6F3;
+    background-color:#D8D9DA;
     height: min-content;
     width: max-content;
 }
@@ -104,7 +104,7 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    background-color:#CEE6F3;
+    background-color:#D8D9DA;
     height: 300px;
     width: 500px;
 }
@@ -119,7 +119,7 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    background-color:#CEE6F3;
+    background-color:#D8D9DA;
     height: 300px;
     width: 500px;
 }
@@ -134,7 +134,7 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    background-color:#CEE6F3;
+    background-color:#D8D9DA;
     height: 300px;
     width: 500px;
 }
@@ -153,6 +153,11 @@
     height: 300px;
     width: 500px;
 
+  }
+  .submit
+  {
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
 .navImage
 {
@@ -197,3 +202,10 @@
     {
       margin-bottom: 20px;
     }
+.location
+{
+  margin-top: 5px;
+  margin-bottom: 0px;
+  position: relative;
+  float: right;
+}
