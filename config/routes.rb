@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'accounts/confirmation_pending', to: 'profiles#after_registration_path'
   get 'accounts/after_confirmation', to: 'profiles#after_confirmation_path'
   post 'profiles/search', to: 'profiles#search'
+  get 'profiles/status', to: 'profiles#change_status'
   root to: 'homes#index'
   resources :profiles, only: %i[new create index edit show update] do
     member do

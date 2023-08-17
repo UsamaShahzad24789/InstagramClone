@@ -102,6 +102,21 @@ class ProfilesController < ApplicationController
               end
   end
 
+  def change_status
+    profile=Profile.find_by(id:params[:profile_id])
+    if profile.status=="public_profile"
+        profile.update(status:1)
+        respond_to do |format|
+        format.json {render json: profile}
+      end
+    else
+      profile.update(status:0)
+      respond_to do |format|
+        format.json {render json: profile}
+      end
+    end
+  end
+
   def after_registration_path
     render layout: 'flow'
   end

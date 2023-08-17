@@ -8,6 +8,9 @@
         <%= hidden_field_tag :id,params[:format] %>
         <div class="row">
           <div class="field">
+         <div>
+           <%="Minimum Password Length: 6 characters"%>
+         </div>
           <%= f.label :password, "New password" %>
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
