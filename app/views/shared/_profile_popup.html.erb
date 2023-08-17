@@ -24,11 +24,14 @@
                   </div>
                   <h6>Change Status</h6>
                  <hr class="mt-0 mb-4">
-                 <div class="col-8 mb-3">
+                 <div class="col-1 mb-3">
                      <label class="switch" id="switchBtn">
                       <input type="checkbox" id="checkBoxBtn" data-profileId='<%=current_profile.id%>'>
                       <span class="slider round" id="sliderBtn"></span>
                     </label>
+                  </div>
+                  <div class="col-1 mb-3">
+                     <%= link_to "Sign Out",destroy_account_session_path(),data:{turbo_method: :delete},class:"btn btn-danger",id:"signOut"%>
                   </div>
                 </div>
               </div>
