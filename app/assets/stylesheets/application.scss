@@ -168,7 +168,7 @@
     top:20px;
 }
 #searchBar{
-    margin-right: -50px;
+    margin-right: 0px;
 }
 #signOut{
     float: right;
@@ -202,13 +202,9 @@
     {
       margin-bottom: 20px;
     }
-.location
-{
-  margin-top: 5px;
-  margin-bottom: 0px;
-  position: relative;
-  float: right;
-}
-.next{
-  margin-right: 100px;
-}
+    .location
+    {
+      float: right;
+      position: relative;
+      margin-top: 20px;
+    }
