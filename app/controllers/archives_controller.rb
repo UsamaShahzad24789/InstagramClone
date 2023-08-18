@@ -14,10 +14,12 @@ class ArchivesController < ApplicationController
   end
 
   def archive_post
+    debugger
     archive_post_function
   end
 
   def un_archive_post
+    debugger
     un_archive_post_function
   end
 
@@ -34,7 +36,7 @@ class ArchivesController < ApplicationController
     archive_post.profile_id = post.profile_id
     return unless archive_post.save
 
-    archive_post.update(image: post.image_blob)
+    archive_post.update(images: post.images_blobs)
     likes = Like.where(post_id: post.id)
     likes.update_all(post_id: archive_post.id)
     comments = Comment.where(post_id: post.id)
@@ -54,7 +56,7 @@ class ArchivesController < ApplicationController
     post.profile_id = archive_post.profile_id
     return unless post.save
 
-    post.update(image: archive_post.image_blob)
+    post.update(images: archive_post.images_blobs)
     archive_post.destroy
     redirect_to archives_path
   end
