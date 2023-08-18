@@ -12,8 +12,8 @@
            <%=form.text_field :location ,class: 'form-control'%>
         </div>
         <div class="field">
-           <%=form.label :image%>
-            <%=form.file_field :image ,class: 'form-control'%>
+           <%=form.label :images%>
+            <%=form.file_field :images,:multiple => true ,class: 'form-control'%>
         </div>
         <div class="submit">
           <%=form.submit class:"btn btn-primary" %>

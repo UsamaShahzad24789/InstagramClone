@@ -9,10 +9,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.update(profile_id: current_profile)
-    @postcount = Post.all.count
+    @post = Post.new(post_params.merge(profile_id: current_profile))
     if @post.save
+      @postcount = Post.all.count
       respond_to do |format|
         format.turbo_stream { render turbo_stream: turbo_stream.prepend('posts', partial: 'posts/post', locals: { post: @post }) }
         format.html { redirect_to profiles_path, notice: 'Post Created' }
@@ -44,7 +43,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:caption, :location, :image)
+    params.require(:post).permit(:caption, :location, images: [])
   end
 
   def edit_params

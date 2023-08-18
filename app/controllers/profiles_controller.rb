@@ -96,9 +96,9 @@ class ProfilesController < ApplicationController
     @current_profile=Profile.find_by(id:current_profile)
     @current_profile_picture = current_profile_picture
     @result = if params[:searchQuery].include? '@'
-                Profile.where(email: params[:searchQuery])
+                Profile.where("email LIKE ?",Profile.sanitize_sql_like("#{params[:searchQuery]}"))
               else
-                Profile.where(user_name: params[:searchQuery])
+                Profile.where("user_name LIKE ?",Profile.sanitize_sql_like("%","#{params[:searchQuery]}"+"%"))
               end
   end
 

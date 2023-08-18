@@ -27,13 +27,42 @@
                                   <%=post.caption%>
                                     <%=post.location%>
                                   <div class="eachImage">
-                                    <%if post.image.attached?%>
-                                        <%if  post.image.content_type.include?("image")%>
-                                        <%=image_tag post.image.representation(resize_to_limit: [600, 600]), class:"img", id:"oneImg" ,:"data-postId"=>post.id%>
-                                        <% else %>
-                                          <%=video_tag url_for(post.image),controls: true,width: "600",height: "auto"%>
-                                        <% end %>
-                                      <%end%>
+                                    <%if post.images.attached?%>
+                                                    <%if  post.images.first.content_type.include?("image")%>
+                                                    <%if post.images.count>1%>
+                                                        <div id="Carousel<%=post.id%>" class="carousel slide" data-bs-ride="carousel">
+                                                        <!-- Wrapper for slides -->
+                                                        <div class="carousel-inner">
+                                                          <% post.images.each_with_index do |image, index| %>
+                                                            <div class="carousel-item <%= 'active' if index == 0 %>">
+                                                              <%= image_tag image.representation(resize_to_limit: [600, 600]), id: "oneImg",:"data-postId" => post.id ,alt: "Slide #{index + 1}"%>
+                                                            </div>
+                                                          <% end %>
+                                                        </div>
+
+                                                        <!-- Left and right controls -->
+                                                      <button class="carousel-control-prev" type="button" data-bs-target="#Carousel<%=post.id%>" data-bs-slide="prev">
+                                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                          <span class="visually-hidden">Previous</span>
+                                                        </button>
+                                                        <button class="carousel-control-next next" type="button" data-bs-target="#Carousel<%=post.id%>" data-bs-slide="next">
+                                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                          <span class="visually-hidden">Next</span>
+                                                        </button>
+                                                      </div>
+                                                      <%else%>
+
+                                                    <div class="image-container">
+                                                      <% post.images.each do |image| %>
+                                                        <%= image_tag image.representation(resize_to_limit: [600, 600]), id: "oneImg", :"data-postId" => post.id %>
+                                                      <% end %>
+                                                    </div>
+
+                                                      <%end%>
+                                                    <% else %>
+                                                      <%=video_tag url_for(post.images.first),controls: true,width: "600",height: "auto",id:"oneVideo" ,:"data-postId"=>post.id%>
+                                                    <% end %>
+                                    <%end%>
                                   </div>
                                   </div>
                                 </div>

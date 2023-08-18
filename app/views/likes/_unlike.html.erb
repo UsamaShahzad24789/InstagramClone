@@ -1,2 +1,32 @@
+<i class="fa-solid fa-thumbs-up fa-2xl" style="color: #0c6efd;" id="unlike<%=my_post.id%>"></i>
+<script>
 
-<%=link_to '<i class="fa-solid fa-thumbs-up fa-2xl" style="color: #0c6efd;"></i>'.html_safe,likes_un_like_post_path(post)%>
+  document.getElementById("unlike<%=my_post.id%>").addEventListener('click',()=>{
+      if(document.getElementById("unlike<%=my_post.id%>").classList.contains('fa-regular'))
+      {
+         console.log("/posts/"+<%=my_post.id%>+"/likes/new")
+          $.ajax({
+            url: "/posts/"+<%=my_post.id%>+"/likes/like",
+            method: 'POST',
+            data: {post_id: <%=my_post.id%>},
+            success: function(data){
+            $("#unlike<%=my_post.id%>").removeClass('fa-regular')
+            $("#unlike<%=my_post.id%>").addClass('fa-solid')
+            }
+            })
+     }
+     else
+     {
+         console.log("/posts/"+<%=my_post.id%>+"/likes/un_like")
+          $.ajax({
+            url: "/posts/"+<%=my_post.id%>+"/likes/un_like",
+            method: 'POST',
+            data: {id: <%=my_post.id%>},
+            success: function(data){
+            $("#unlike<%=my_post.id%>").removeClass('fa-solid')
+            $("#unlike<%=my_post.id%>").addClass('fa-regular')
+            }
+          })
+     }
+     })
+</script>
