@@ -14,12 +14,10 @@ class ArchivesController < ApplicationController
   end
 
   def archive_post
-    debugger
     archive_post_function
   end
 
   def un_archive_post
-    debugger
     un_archive_post_function
   end
 

@@ -156,10 +156,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.3-x86_64-darwin)
       racc (~> 1.4)
-    open-uri (0.3.0)
-      stringio
-      time
-      uri
     orm_adapter (0.5.0)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -255,11 +251,8 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
-    stringio (3.0.8)
     thor (1.2.2)
     tilt (2.2.0)
-    time (0.2.2)
-      date
     timeout (0.4.0)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
@@ -270,7 +263,6 @@ GEM
     tzinfo-data (1.2023.3)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.4.2)
-    uri (0.12.2)
     view_component (3.5.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
@@ -308,7 +300,6 @@ DEPENDENCIES
   image_processing (>= 1.2)
   importmap-rails
   jbuilder
-  open-uri
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.6)
