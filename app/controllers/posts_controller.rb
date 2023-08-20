@@ -40,6 +40,17 @@ class PostsController < ApplicationController
     end
   end
 
+  def share
+    post=Post.find_by(id:params[:id])
+    share_post=post.dup
+    share_post.update(comment_count:0)
+    share_post.update(likes_count:0)
+    share_post.update(profile_id:current_profile)
+    share_post.update(shared:Profile.where(id:post.profile_id).pluck(:user_name))
+    share_post.update(status:1)
+    share_post.update(images:post.images_blobs)
+  end
+
   private
 
   def post_params

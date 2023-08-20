@@ -5,7 +5,7 @@
         <div id="info">
           <%=link_to "Followers: #{@followers}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
           <%=link_to "Following: #{@following}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
-          <%=link_to "Posts: #{@post_count}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
+          <%# <span>Posts: <span id="postCount"><%=@post_count</span> </span>%>
           <%if @has_followed==1%>
             <%=link_to "Unfollow",friendships_unfollow_profile_path(@profile.id),class:"btn btn-primary"%>
           <% else %>
@@ -64,6 +64,18 @@
                     <%else%>
                         <%= render partial: "likes/unlike",locals:{my_post:post}%>
                     <%end%>
+                  <%if post.status=="shared"%>
+                              <%if !(post.shared.include?current_account.email)%>
+                                
+                                  <p>Post By:<%=post.shared%></p>
+                                
+                                <%=link_to "Share",share_post_path(post),data:{turbo_method: :post},id:"commentBtn" ,class:"btn btn-primary"%>
+                            <%else%>
+                                 <p>You Shared This Post</p>
+                            <%end%>
+                            <%else%>
+                            <%=link_to "Share",share_post_path(post),data:{turbo_method: :post},id:"commentBtn" ,class:"btn btn-primary"%>
+                            <%end%>
                   <%=link_to "Comment",new_post_comment_path(post),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
                 </div>
               <%end%>
@@ -120,6 +132,18 @@
                     <%else%>
                           <%= render partial: "likes/unlike",locals:{my_post:post}%>
                     <%end%>
+                     <%if post.status=="shared"%>
+                              <%if !(post.shared.include?current_account.email)%>
+                                
+                                  <p>Post By:<%=post.shared%></p>
+                                
+                                <%=link_to "Share",share_post_path(post),id:"commentBtn" ,class:"btn btn-primary"%>
+                            <%else%>
+                                 <p>You Shared This Post</p>
+                            <%end%>
+                            <%else%>
+                            <%=link_to "Share",share_post_path(post),id:"commentBtn" ,class:"btn btn-primary"%>
+                            <%end%>
                   <%=link_to "Comment",new_post_comment_path(post),data:{turbo_frame: "comment"},id:"commentBtn" ,class:"btn btn-primary"%>
                 </div>
               <%end%>

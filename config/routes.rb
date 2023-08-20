@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
   resources :posts, only: %i[new create edit update] do
     member do
+      post '/share', to: 'posts#share'
       get '/archives/archive_post', to: 'archives#archive_post'
       post '/likes/un_like', to: 'likes#un_like'
       post 'likes/like', to: 'likes#like'

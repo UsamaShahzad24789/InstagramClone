@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
+  #shared
+  enum status: {shared: 1,false: 0 }
+
   # each post has many comments
   has_many :comments, dependent: :destroy
   # each post has many likes

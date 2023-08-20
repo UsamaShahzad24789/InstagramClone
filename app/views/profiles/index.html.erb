@@ -9,7 +9,7 @@
       <div id="info">
         <%=link_to "Followers: #{@followers}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
         <%=link_to "Following: #{@following}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
-        <span>Posts: <span id="postCount"><%=@post_count%></span> </span>
+        <%# <span>Posts: <span id="postCount"><%=@post_count</span> </span>%>
       </div>
       <div class="modal" id="exampleModal">
         <div id="ModalPostId"></div>

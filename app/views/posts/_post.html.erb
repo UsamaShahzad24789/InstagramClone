@@ -41,9 +41,12 @@
     <p>"<%=post.caption%>" Location: <%=post.location%></p>
   </div>
   <div>
-    <%=link_to "Likes: #{post.likes_count}",post_likes_path(post),data:{turbo_frame: "likes"},class:"btn btn primary"%>
-  <%=link_to "Comments: #{post.comment_count}",post_comments_path(post),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
-  <%=link_to "Archive Post",archives_archive_post_post_path(post),class:"btn btn-outline-danger"%>
+       <%if post.status=="shared"%>
+            <p>Post By:<%=post.shared%></p>
+        <%end%>
+      <%=link_to "Likes: #{post.likes_count}",post_likes_path(post),data:{turbo_frame: "likes"},class:"btn btn primary"%>
+      <%=link_to "Comments: #{post.comment_count}",post_comments_path(post),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
+      <%=link_to "Archive Post",archives_archive_post_post_path(post),class:"btn btn-outline-danger"%>
   </div>
 </div>
 <style>

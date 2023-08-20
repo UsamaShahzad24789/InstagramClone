@@ -98,7 +98,7 @@ class ProfilesController < ApplicationController
     @result = if params[:searchQuery].include? '@'
                 Profile.where("email LIKE ?",Profile.sanitize_sql_like("#{params[:searchQuery]}"))
               else
-                Profile.where("user_name LIKE ?",Profile.sanitize_sql_like("%","#{params[:searchQuery]}"+"%"))
+                Profile.where("user_name LIKE ?",Profile.sanitize_sql_like("%","#{params[:searchQuery].capitalize}"+"%"))
               end
   end
 
