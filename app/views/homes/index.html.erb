@@ -57,7 +57,7 @@
                               <%if post.status=="shared"%>
                               <%if !(post.shared.include?current_account.email)%>
 
-                                  <p class="mb-2">Post By:<%=post.shared%></p>
+                                  <p>Post By:<%=post.shared%><span class="badge rounded-pill text-bg-success">Shared</span></p>
 
                             <%else%>
                                  <p>You Shared This Post</p>
@@ -135,7 +135,7 @@
                               <%if post.status=="shared"%>
                               <%if !(post.shared.include?current_account.email)%>
 
-                                  <p class="mb-2">Post By:<%=post.shared%></p>
+                                  <p>Post By:<%=post.shared%><span class="badge rounded-pill text-bg-success">Shared</span></p>
 
                             <%else%>
                                  <p>You Shared This Post</p>

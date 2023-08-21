@@ -42,7 +42,7 @@
   </div>
   <div>
        <%if post.status=="shared"%>
-            <p>Post By:<%=post.shared%></p>
+            <p>Post By:<%=post.shared%><span class="badge rounded-pill text-bg-success">Shared</span></p>
         <%end%>
       <%=link_to "Likes",post_likes_path(post),data:{turbo_frame: "likes"},class:"btn btn primary"%>
       <%=link_to "Comments",post_comments_path(post),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
