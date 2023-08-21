@@ -44,8 +44,8 @@
        <%if post.status=="shared"%>
             <p>Post By:<%=post.shared%></p>
         <%end%>
-      <%=link_to "Likes: #{post.likes_count}",post_likes_path(post),data:{turbo_frame: "likes"},class:"btn btn primary"%>
-      <%=link_to "Comments: #{post.comment_count}",post_comments_path(post),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
+      <%=link_to "Likes",post_likes_path(post),data:{turbo_frame: "likes"},class:"btn btn primary"%>
+      <%=link_to "Comments",post_comments_path(post),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
       <%=link_to "Archive Post",archives_archive_post_post_path(post),class:"btn btn-outline-danger"%>
   </div>
 </div>
@@ -67,12 +67,16 @@
       Object.keys(a).forEach((x)=>{a[x].addEventListener('click',(e)=>{
           myModal.hidden= false
           b=a[x].dataset.postid
+          var token = document.getElementsByName('csrf-token')[0].content
           const btn=document.getElementById("deleteBtn")
           btn.addEventListener('click',()=>{
             $.ajax({
                   url: '/posts/destroy',
                   method: 'DELETE',
                   data: {post_id: b},
+                  headers: {
+                    'X-CSRF-Token': token,
+                  },
                   success: function(data){
 
                   }

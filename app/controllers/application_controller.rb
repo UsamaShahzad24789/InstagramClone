@@ -2,14 +2,15 @@
 
 class ApplicationController < ActionController::Base
   def check_status
-    return unless current_account.status == 'de_activated'
-
-    redirect_to admins_status_path
+    if current_account.status == 'de_activated'
+      redirect_to admins_status_path
+    end
   end
 
   def role
-    return unless current_account.role == 'admin'
+    if current_account.role == 'admin'
+      redirect_to admins_path
+    end
 
-    redirect_to admins_path
   end
 end

@@ -4,10 +4,14 @@
   document.getElementById("like<%=my_post.id%>").addEventListener('click',()=>{
       if(document.getElementById("like<%=my_post.id%>").classList.contains('fa-regular'))
       {
+          var token = document.getElementsByName('csrf-token')[0].content
          console.log("/posts/"+<%=my_post.id%>+"/likes/like")
           $.ajax({
             url: "/posts/"+<%=my_post.id%>+"/likes/like",
             method: 'POST',
+            headers: {
+                    'X-CSRF-Token': token,
+                  },
             data: {post_id: <%=my_post.id%>},
             success: function(data){
             $("#like<%=my_post.id%>").removeClass('fa-regular')
@@ -18,9 +22,13 @@
      else
      {
          console.log("/posts/"+<%=my_post.id%>+"/likes/un_like")
+          var token = document.getElementsByName('csrf-token')[0].content
           $.ajax({
             url: "/posts/"+<%=my_post.id%>+"/likes/un_like",
             method: 'POST',
+            headers: {
+                    'X-CSRF-Token': token,
+                  },
             data: {id: <%=my_post.id%>},
             success: function(data){
             $("#like<%=my_post.id%>").removeClass('fa-solid')

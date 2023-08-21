@@ -62,9 +62,9 @@
                               <%end%>
                             <%if post.status=="shared"%>
                               <%if !(post.shared.include?current_account.email)%>
-                                
+
                                   <p>Post By:<%=post.shared%></p>
-                                
+
                                 <%=link_to "Share",share_post_path(post),data:{turbo_method: :post},id:"commentBtn" ,class:"btn btn-primary"%>
                             <%else%>
                                  <p>You Shared This Post</p>
@@ -142,9 +142,9 @@
                               <%end%>
                               <%if post.status=="shared"%>
                               <%if !(post.shared.include?current_account.email)%>
-                                
+
                                   <p>Post By:<%=post.shared%></p>
-                                
+
                                 <%=link_to "Share",share_post_path(post),data:{turbo_method: :post},id:"commentBtn" ,class:"btn btn-primary"%>
                             <%else%>
                                  <p>You Shared This Post</p>

@@ -2,7 +2,8 @@
 
 class AdminsController < ApplicationController
   before_action :authenticate_account!
-
+  before_action :check_status
+  before_action :role
   layout 'flow'
   def index
     @profiles = Profile.all

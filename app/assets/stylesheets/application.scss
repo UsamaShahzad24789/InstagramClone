@@ -95,7 +95,7 @@
 }
 .likes
 {
-    z-index: 1;
+    z-index:99;
     display: block;
     position: fixed;
     top: 50%;
@@ -125,7 +125,7 @@
 }
 .postComments
 {
-    z-index: 1;
+    z-index:99;
     display: block;
     position: fixed;
     top: 50%;
