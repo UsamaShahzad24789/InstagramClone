@@ -4,7 +4,9 @@ class AdminsController < ApplicationController
   before_action :authenticate_account!
   before_action :check_status
   before_action :role
+  before_action :user
   layout 'flow'
+
   def index
     @profiles = Profile.all
     @posts = Post.all.order(created_at: :desc)

@@ -6,7 +6,6 @@ class ArchivesController < ApplicationController
   before_action :authenticate_account!
   before_action :check_status
   before_action :role
-
   def index
     @current_profile_picture = current_profile_picture
     @archives = Archive.where(profile_id: current_profile)

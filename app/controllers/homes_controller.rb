@@ -6,7 +6,6 @@ class HomesController < ApplicationController
   before_action :authenticate_account!
   before_action :check_status
   before_action :role
-
   def index
     if !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path

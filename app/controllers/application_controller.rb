@@ -11,6 +11,11 @@ class ApplicationController < ActionController::Base
     if current_account.role == 'admin'
       redirect_to admins_path
     end
+  end
 
+  def user
+    if current_account.role=="users"
+      redirect_to root_path
+    end
   end
 end
