@@ -3,9 +3,9 @@
 class ArchivesController < ApplicationController
   include ProfilePicture
   include CurrentProfile
-  before_action :authenticate_account!
-  before_action :check_status
-  before_action :role
+  before_action :check_activation_statuss
+  before_action :restrict_admin
+
   def index
     @current_profile_picture = current_profile_picture
     @archives = Archive.where(profile_id: current_profile)

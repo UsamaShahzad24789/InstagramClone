@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+
   def index
     @comment = Comment.where(post_id: params[:post_id])
   end

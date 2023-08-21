@@ -3,9 +3,9 @@
 class HomesController < ApplicationController
   include CurrentProfile
   include ProfilePicture
-  before_action :authenticate_account!
-  before_action :check_status
-  before_action :role
+  before_action :check_activation_status
+  before_action :restrict_admin
+
   def index
     if !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path

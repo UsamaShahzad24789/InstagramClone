@@ -2,7 +2,6 @@
 
 class LikesController < ApplicationController
 
-
   def index
     @likes = Like.where(post_id: params[:post_id])
   end
@@ -31,4 +30,5 @@ class LikesController < ApplicationController
       format.json
     end
   end
+
 end

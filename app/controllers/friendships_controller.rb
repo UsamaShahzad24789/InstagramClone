@@ -2,6 +2,7 @@
 
 class FriendshipsController < ApplicationController
   include CurrentProfile
+
   def follow
     current_profile
     id = params[:id]

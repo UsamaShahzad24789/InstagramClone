@@ -76,9 +76,9 @@
                   <div id="eachAccount">
                     <%=account.email%>
                     <%if account.status=="activated"%>
-                      <%=link_to "Deactivate",admins_de_activate_path(account),class:"btn btn-danger"%>
+                      <%=link_to "Deactivate",admins_admins_de_activate_path(account),data:{turbo_method: :post},class:"btn btn-danger"%>
                     <%else%>
-                      <%=link_to "Activate",admins_activate_path(account),class:"btn btn-success"%>
+                      <%=link_to "Activate",admins_admins_activate_path(account),data:{turbo_method: :post},class:"btn btn-success"%>
                     <%end%>
                   </div>
                 <%end%>

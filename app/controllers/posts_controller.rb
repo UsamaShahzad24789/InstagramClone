@@ -2,7 +2,7 @@
 
 class PostsController < ApplicationController
   include CurrentProfile
-  before_action :authenticate_account!
+
   def new
     @post = Post.new
   end
@@ -42,12 +42,7 @@ class PostsController < ApplicationController
   def share
     post=Post.find_by(id:params[:id])
     share_post=post.dup
-    share_post.update(comment_count:0)
-    share_post.update(likes_count:0)
-    share_post.update(profile_id:current_profile)
-    share_post.update(shared:Profile.where(id:post.profile_id).pluck(:user_name))
-    share_post.update(status:1)
-    share_post.update(images:post.images_blobs)
+    share_post.update(comment_count:0,likes_count:0,profile_id:current_profile,shared:Profile.where(id:post.profile_id).pluck(:user_name),status:1,images:post.images_blobs)
   end
 
   private
