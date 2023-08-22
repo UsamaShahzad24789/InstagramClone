@@ -4,11 +4,10 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect() {
   }
-  close(e)
-  {
+  
+  close(e) {
     e.preventDefault();
-    const modal=document.getElementById("likes")
-    modal.innerHTML=""
-
+    const modal = document.getElementById("likes")
+    modal.innerHTML = ""
   }
 }

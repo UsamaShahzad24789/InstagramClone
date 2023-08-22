@@ -94,7 +94,7 @@ class ProfilesController < ApplicationController
   end
 
   def search
-    @current_profile=Profile.find_by(id:current_profile)
+    @current_profile = Profile.find_by(id:current_profile)
     @current_profile_picture = current_profile_picture
     @result = if params[:searchQuery].include? '@'
                 Profile.where("email LIKE ?",Profile.sanitize_sql_like("#{params[:searchQuery]}"))
@@ -104,12 +104,12 @@ class ProfilesController < ApplicationController
   end
 
   def change_status
-    profile=Profile.find_by(id:params[:profile_id])
-    if profile.status=="public_profile"
+    profile = Profile.find_by(id:params[:profile_id])
+    if profile.public_profile?
         profile.update(status:1)
         respond_to do |format|
-        format.json {render json: profile}
-      end
+          format.json {render json: profile}
+        end
     else
       profile.update(status:0)
       respond_to do |format|

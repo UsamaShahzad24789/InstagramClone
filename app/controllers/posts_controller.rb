@@ -40,14 +40,14 @@ class PostsController < ApplicationController
   end
 
   def share
-    post=Post.find_by(id:params[:id])
-    share_post=post.dup
+    post = Post.find_by(id:params[:id])
+    share_post = post.dup
     share_post.update(comment_count:0,likes_count:0,profile_id:current_profile,shared:Profile.where(id:post.profile_id).pluck(:user_name),status:1,images:post.images_blobs)
   end
 
   def archives
-    @archives=Post.where(archived:1)
-    @current_profile=Profile.find_by(id:current_profile)
+    @archives = Post.where(archived:1)
+    @current_profile = Profile.find_by(id:current_profile)
     @current_profile_picture = current_profile_picture
   end
 
