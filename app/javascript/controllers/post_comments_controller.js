@@ -5,11 +5,11 @@ export default class extends Controller {
   connect() {
 
   }
-  close(e)
-  {
+  
+  close(e) {
     e.preventDefault();
-    const modal=document.getElementById("postComments")
-    modal.innerHTML=""
+    const modal = document.getElementById("postComments")
+    modal.innerHTML = ""
 
   }
 }
