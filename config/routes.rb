@@ -26,19 +26,16 @@ Rails.application.routes.draw do
       get 'friendships/unfollow', to: 'friendships#unfollow'
     end
   end
+  get '/archives', to: "posts#archives"
   resources :posts, only: %i[new create edit update] do
     member do
       post '/share', to: 'posts#share'
-      get '/archives/archive_post', to: 'archives#archive_post'
+      get '/archive_post', to: 'posts#archive_post'
+      get '/un_archive_post', to: 'posts#un_archive_post'
       post '/likes/un_like', to: 'likes#un_like'
       post 'likes/like', to: 'likes#like'
     end
     resources :comments, :likes, shallow: true
   end
   delete '/posts/destroy', to: 'posts#destroy'
-  resources :archives, only: [:index] do
-    member do
-      get '/archives/unArchive', to: 'archives#un_archive_post'
-    end
-  end
 end

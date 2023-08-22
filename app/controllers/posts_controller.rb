@@ -2,7 +2,7 @@
 
 class PostsController < ApplicationController
   include CurrentProfile
-
+  include ProfilePicture
   def new
     @post = Post.new
   end
@@ -43,6 +43,22 @@ class PostsController < ApplicationController
     post=Post.find_by(id:params[:id])
     share_post=post.dup
     share_post.update(comment_count:0,likes_count:0,profile_id:current_profile,shared:Profile.where(id:post.profile_id).pluck(:user_name),status:1,images:post.images_blobs)
+  end
+
+  def archives
+    @archives=Post.where(archived:1)
+    @current_profile=Profile.find_by(id:current_profile)
+    @current_profile_picture = current_profile_picture
+  end
+
+  def archive_post
+    Post.find_by(id:params[:id]).true!
+    redirect_to profiles_path
+  end
+
+  def un_archive_post
+    Post.find_by(id:params[:id]).false!
+    redirect_to archives_path
   end
 
   private

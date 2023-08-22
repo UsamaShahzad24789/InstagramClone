@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_20_145238) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_22_062827) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,16 +60,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_20_145238) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "archives", force: :cascade do |t|
-    t.text "caption"
-    t.string "location"
-    t.integer "profile_id"
-    t.integer "likes_count", default: 0
-    t.integer "comment_count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "comments", force: :cascade do |t|
     t.text "comment"
     t.bigint "post_id"
@@ -101,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_20_145238) do
     t.integer "profile_id"
     t.integer "likes_count", default: 0
     t.integer "comment_count", default: 0
+    t.integer "archived", default: 0
     t.integer "status", default: 0
     t.string "shared"
   end

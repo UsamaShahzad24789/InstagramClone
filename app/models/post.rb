@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
-  #shared
-  enum status: {shared: 1,false: 0 }
 
-  # each post has many comments
+  enum archived: { true: 1 ,false: 0 }
+  enum status: { shared: 1, shared_not: 0}
   has_many :comments, dependent: :destroy
-  # each post has many likes
   has_many :likes, dependent: :destroy
-
-  # active storage association for posts
-  # has_one_attached :image
   has_many_attached :images
+
 end

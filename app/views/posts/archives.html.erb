@@ -43,7 +43,7 @@
                   <%end%>
                 <%=post.caption%>
                 <%=post.location%>
-               <%=link_to "Un Archive",archives_unArchive_archive_path(post),class:"btn btn-outline-success"%>
+               <%=link_to "Un Archive",un_archive_post_post_path(post),data:{turbo_method: :get},class:"btn btn-outline-success"%>
             </div>
           <%end%>
         </div>

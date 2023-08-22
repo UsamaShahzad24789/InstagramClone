@@ -46,7 +46,7 @@
         <%end%>
       <%=link_to "Likes",post_likes_path(post),data:{turbo_frame: "likes"},class:"btn btn primary"%>
       <%=link_to "Comments",post_comments_path(post),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
-      <%=link_to "Archive Post",archives_archive_post_post_path(post),class:"btn btn-outline-danger"%>
+      <%=link_to "Archive Post",archive_post_post_path(post),data:{turbo_method: :get},class:"btn btn-outline-danger"%>
   </div>
 </div>
 <style>
