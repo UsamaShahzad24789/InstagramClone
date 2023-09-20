@@ -4,6 +4,8 @@
     <%@likes.each do |like|%>
       <div>
         <%=like.email%>
+        <%user_name=Profile.where(email:like.email).pluck(:user_name)%>
+        <%=user_name%>
       </div>
     <%end%>
     <div>

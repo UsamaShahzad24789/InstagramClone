@@ -1,0 +1,35 @@
+<div class="main">
+  <div class="container">
+    <h1>ARCHIVES</h1>
+    <div>
+        <%@archives.each do |x|%>
+            <div id="archives">
+                <%=link_to "#{@current_profile.user_name}",profile_path(@current_profile.id),class:"btn btn primary"%>
+                <%if x.image.representable?%>
+                    <%=image_tag x.image.representation(resize_to_limit: [100, 100]), class:"img"%>
+                <%end%>
+                <%=x.caption%>
+                <%=x.location%>
+               <%=link_to "Un Archive",archives_unArchive_archive_path(x),class:"btn btn-outline-success"%>
+            </div>
+          <%end%>
+        </div>
+  </div>
+</div>
+<style>
+  .post_img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    float: right;
+    top:20px;
+  }
+  #archives
+  {
+    padding: 20px;
+  }
+  .main{
+    margin-top: 40px;
+  }
+</style>

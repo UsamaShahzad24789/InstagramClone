@@ -4,6 +4,8 @@ class HomesController < ApplicationController
   include CurrentProfile
   include ProfilePicture
   before_action :authenticate_account!
+  before_action :check_status
+  before_action :role
 
   def index
     if !Profile.account_has_profile(current_account.id).exists?
@@ -43,12 +45,12 @@ def recommended_posts
   @post = []
   @profile = []
   follower.each do |x|
-    profile_id=current_profile
-    if !(x.followed_id==profile_id)
-      data = Post.where(profile_id: x.followed_id)
-      @post.append(data) if data.count != 0
-      @profile.append(Profile.find_by(id: x.followed_id))
-    end
-  end
+    profile_id = current_profile
+    status_check = Profile.find_by(id: x.followed_id)
+    next unless x.followed_id != profile_id && status_check.status != 'private_profile'
 
+    data = Post.where(profile_id: x.followed_id)
+    @post.append(data) if data.count != 0
+    @profile.append(Profile.find_by(id: x.followed_id))
+  end
 end

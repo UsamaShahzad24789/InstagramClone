@@ -7,6 +7,9 @@ class Profile < ApplicationRecord
   # each profile has many posts
   has_many :posts, dependent: :destroy
 
+  # has one archive
+  has_one :archive, dependent: :destroy
+
   # Creating self association in a middle table of Friendship
   has_many :followed_profiles, foreign_key: :followed_id, class_name: 'Friendship'
   has_many :followed, through: :followed_profiles, dependent: :destroy

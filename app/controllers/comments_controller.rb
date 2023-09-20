@@ -15,9 +15,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.update(post_id: params[:post_id])
 
-    return unless @comment.save
-
-    redirect_to root_path
+    nil unless @comment.save
   end
 
   def comment_params

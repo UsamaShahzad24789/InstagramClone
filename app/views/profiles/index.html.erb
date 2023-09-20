@@ -1,31 +1,37 @@
 <div class="main">
   <div class="container">
-    <%=image_tag @profile.profile_picture.representation(resize_to_limit: [250, 250]),class: "post_img"%>
+    <div class="d-flex justify-content-end mb-3">
+      <%=link_to  "Create a New Post",new_post_path,data:{turbo_frame: "modal"},class:"btn btn-primary" ,id:"createPost"%>
+      <%=link_to "Archived Posts",archives_path,class:"btn btn-outline-danger",id:"archived"%>
+    </div>
+    <%=image_tag @profile.profile_picture.representation(resize_to_limit: [500, 500]),class: "post_img"%>
     <h1>Welcome <%=@profile.user_name%></h1>
       <div id="info">
         <%=link_to "Followers: #{@followers}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
         <%=link_to "Following: #{@following}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
-        <%=link_to "Posts: #{@post_count}",new_post_path,data:{turbo_frame: "modal"},class:"btn btn primary"%>
+        <span>Posts: <span id="postCount"><%=@post_count%></span> </span>
       </div>
-        <div>
-            <%@posts.each do |x|%>
-            <div id="posts">
-              <%=x.caption%>
-              <%=x.location%>
-              <%if x.image.representable?%>
-                <%=image_tag x.image.representation(resize_to_limit: [100, 100]), class:"img"%>
-              <%end%>
-              <%=link_to "Likes: #{x.likes_count}",post_likes_path(x),data:{turbo_frame: "likes"},class:"btn btn primary"%>
-              <%=link_to "Comments: #{x.comment_count}",post_comments_path(x),data:{turbo_frame: "postComments"},class:"btn btn primary"%>
-            </div>
+      <div class="modal" id="exampleModal">
+        <div id="ModalPostId"></div>
+          <div id="editBtn" class="btn btn-primary" >Edit Post</div>
+          <a data-turbo-frame="editModal" class="btn btn-primary" id="editPost"></a>
+          <div id="deleteBtn" class="btn btn-danger" >Delete Post</div>
+      </div>
+        <div id="posts">
+          <div class="row">
+          <%@posts.each do |post|%>
+                <div class="col lg-4">
+                  <%= render partial:"posts/post",locals:{post:post}%>
+                </div>
           <%end%>
+          </div>
         </div>
-        <%=link_to  "Create a New Post",new_post_path,data:{turbo_frame: "modal"},class:"btn btn-primary"%>
   </div>
 </div>
-
-
-
+<script>
+      var myModal = document.getElementById('exampleModal')
+      myModal.hidden= true
+</script>
 <style>
   .post_img {
     width: 200px;
@@ -35,10 +41,6 @@
     float: right;
     top:20px;
   }
-  #posts
-  {
-    padding: 20px;
-  }
   .main{
     margin-top: 40px;
   }
@@ -47,4 +49,20 @@
     margin-left: 40px;
     margin-bottom: 50px;
   }
+  #posts
+  {
+    display: flex;
+    justify-content: space-between;
+  }
+  #archived
+  {
+    margin-left: 30px;
+    width: max-content;
+    margin-right: 30px;
+  }
+  #createPost
+  {
+    width: max-content;
+  }
+
 </style>

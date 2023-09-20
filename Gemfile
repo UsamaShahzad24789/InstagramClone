@@ -18,6 +18,9 @@ gem 'image_processing', '>= 1.2'
 
 gem 'rubocop'
 
+gem 'rake'
+
+gem 'httparty' # for hitting the api and storing the response
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 

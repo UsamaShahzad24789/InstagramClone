@@ -3,17 +3,23 @@
 class ProfilesController < ApplicationController
   include CurrentProfile
   include ProfilePicture
-
+  include AvatarCreator
   before_action :authenticate_account!
+  before_action :role
+  before_action :check_status
   skip_before_action :authenticate_account!, only: %i[after_registration_path after_confirmation_path]
   skip_before_action :verify_authenticity_token, only: [:search]
+  skip_before_action :check_status, only: %i[after_registration_path after_confirmation_path]
+  skip_before_action :role, only: %i[after_registration_path after_confirmation_path]
 
+  layout 'flow', only: [:new,:edit]
   def index
     if !Profile.account_has_profile(current_account.id).exists?
       redirect_to new_profile_path
     else
       @current_profile_picture = current_profile_picture
       @profile = Profile.find_by(account_id: current_account.id)
+      @user_name_for_api = @profile.user_name.gsub(' ', '+')
       @posts = Post.where(profile_id: current_profile).order(created_at: :desc)
       @followers = Profile.followers_count(@profile.id)
       @following = Profile.following_count(@profile.id)
@@ -26,10 +32,10 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    render layout: 'flow'
     @profile = Profile.new(profile_params)
     @profile.update(email: current_account.email, account_id: current_account.id)
     if @profile.save
+      name_creator unless @profile.profile_picture.representable?
       respond_to do |format|
         format.html { redirect_to profiles_path, notice: 'Post was successfully Created.' }
       end
@@ -39,6 +45,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
+    @current_profile=Profile.find_by(id:current_profile)
     @current_profile_picture = current_profile_picture
     profile_id = params[:id]
     @profile = Profile.find_by(id: profile_id)
@@ -66,12 +73,48 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def edit
+    @profile=Profile.find_by(id:params[:id])
+  end
+
+  def update
+    @profile=Profile.find_by(id:params[:id])
+    @profile.update(profile_params)
+    @profile.update(email: current_account.email, account_id: current_account.id)
+    @profile.update(status:0)
+    if @profile.save
+      name_creator unless @profile.profile_picture.representable?
+      respond_to do |format|
+        format.html { redirect_to profiles_path, notice: 'Post was successfully Created.' }
+      end
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def search
+    @current_profile=Profile.find_by(id:current_profile)
+    @current_profile_picture = current_profile_picture
     @result = if params[:searchQuery].include? '@'
                 Profile.where(email: params[:searchQuery])
               else
                 Profile.where(user_name: params[:searchQuery])
               end
+  end
+
+  def change_status
+    profile=Profile.find_by(id:params[:profile_id])
+    if profile.status=="public_profile"
+        profile.update(status:1)
+        respond_to do |format|
+        format.json {render json: profile}
+      end
+    else
+      profile.update(status:0)
+      respond_to do |format|
+        format.json {render json: profile}
+      end
+    end
   end
 
   def after_registration_path
